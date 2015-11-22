@@ -15,6 +15,7 @@ Valid TSON data is represented by the document non-terminal.
 The following basic types are used as terminals in the rest of the grammar.
 Each type must be serialized in little-endian format.
 
+```
 uint8	1 byte (8-bit unsigned integer)
 uint16   2 bytes (16-bit unsigned integer)
 uint32	4 bytes (32-bit unsigned integer)
@@ -26,6 +27,7 @@ int64	8 bytes (64-bit signed integer, two's complement)
 
 float32	4 bytes (32-bit IEEE 754-2008 binary floating point)
 float64	8 bytes (64-bit IEEE 754-2008 binary floating point)
+```
 
 # Non-terminals
 
@@ -33,6 +35,7 @@ The following specifies the rest of the TSON grammar.
 Note that we use the * operator as shorthand for repetition (e.g. ("\x01"*2) is "\x01\x01").
 When used as a unary operator, * means that the repetition can occur 0 or more times.
 
+```
 document ::= cstring map_list      TSON Document. cstring is the version of the specification.
 
 map_list ::= map | list
@@ -68,3 +71,4 @@ int32_list ::= "\x69" uint32 (int32*)
 int64_list ::= "\x6A" uint32 (int64*)
 float32_list ::= "\x6E" uint32 (float32*)
 float64_list ::= "\x6F" uint32 (float64*)
+```
