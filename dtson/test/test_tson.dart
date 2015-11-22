@@ -7,6 +7,16 @@ import 'dart:typed_data' as td;
 
 main() {
   group('binary_serializer', () {
+    test('Empty list', (){
+      var bytes = TSON.encode([]);
+      print(bytes);
+    });
+
+    test('Simpl list', (){
+      var bytes = TSON.encode(["a",42,42.0]);
+      print(bytes);
+    });
+
     test('binary_serializer', () {
       var map = {
         "string": "hello",

@@ -145,7 +145,7 @@ class _BinarySerializer {
     } else {
       throw new TsonError(404, "unknown.typed.data","unknown typed data");
     }
-    _byteData.setUint32(_byteOffset, len);
+    _byteData.setUint32(_byteOffset, len, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     var bytes = new td.Uint8List.view(
         object.buffer, object.offsetInBytes, len * object.elementSizeInBytes);
@@ -155,14 +155,14 @@ class _BinarySerializer {
 
   _addList(List object) {
     _addType(LIST_TYPE);
-    _byteData.setUint32(_byteOffset, object.length);
+    _byteData.setUint32(_byteOffset, object.length, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     object.forEach(_add);
   }
 
   _addMap(Map object) {
     _addType(MAP_TYPE);
-    _byteData.setUint32(_byteOffset, object.length);
+    _byteData.setUint32(_byteOffset, object.length, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     object.forEach((k, v) {
       _add(k);
@@ -239,7 +239,7 @@ class _BinarySerializer {
   }
 
   Map _readMap() {
-    final len = _byteData.getUint32(_byteOffset);
+    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     var answer = new Map();
     for (int i = 0; i < len; i++) {
@@ -276,7 +276,7 @@ class _BinarySerializer {
   }
 
   List _readList() {
-    final len = _byteData.getUint32(_byteOffset);
+    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     var answer = new List(len);
     for (int i = 0; i < len; i++) {
@@ -310,7 +310,7 @@ class _BinarySerializer {
   }
 
   td.TypedData _readTypedData(int type) {
-    final len = _byteData.getUint32(_byteOffset);
+    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     final elementSize = _elementSizeFromType(type);
     var answer = new td.Uint8List(len * elementSize);
