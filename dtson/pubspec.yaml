@@ -1,0 +1,11 @@
+name: tson
+description: JSON like format for binary serialization. Handle typed data.
+version: 1.0.0
+author: am <alexandre.maurel@gmail.com>
+homepage: https://github.com/amaurel/TSON
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dev_dependencies:
+  test: '>=0.12.0 <0.13.0'
