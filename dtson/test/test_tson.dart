@@ -12,13 +12,23 @@ main() {
       print(bytes);
     });
 
+    test('Empty map', () {
+      var bytes = TSON.encode({});
+      print(bytes);
+    });
+
+    test('Simple list with null', () {
+      var bytes = TSON.encode([null]);
+      print(bytes);
+    });
+
     test('Simple list', () {
-      var bytes = TSON.encode(["a", 42, 42.0]);
+      var bytes = TSON.encode(["a", true, false, 42, 42.0]);
       print(bytes);
     });
 
     test('Simple int32 list', () {
-      var bytes = TSON.encode(new td.Int32List.fromList([42]));
+      var bytes = TSON.encode(new td.Int32List.fromList([42,42]));
       print(bytes);
     });
 

@@ -247,7 +247,7 @@ class _BinarySerializer {
     } else if (object is double) {
       sizeInBytes += 8;
     } else if (object is bool) {
-      sizeInBytes = 4;
+      sizeInBytes += 1;
     } else if (object is td.TypedData) {
       sizeInBytes += object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
     } else if (object is CStringList || object is List || object is Map) {
