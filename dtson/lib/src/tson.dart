@@ -5,13 +5,13 @@ td.Uint8List encode(object) {
 }
 
 Object decode(td.Uint8List bytes, [int offset]) {
-  return new _BinarySerializer.fromBytes( bytes, offset).toObject();
+  return new _BinarySerializer.fromBytes(bytes, offset).toObject();
 }
 
 class TsonError {
   Map _data;
-  TsonError(int statusCode, String error, String reason){
-    _data = {"statusCode": statusCode, "error":error, "reason": reason};
+  TsonError(int statusCode, String error, String reason) {
+    _data = {"statusCode": statusCode, "error": error, "reason": reason};
   }
   int get statusCode => _data["statusCode"];
   String get error => _data["error"];
@@ -21,15 +21,16 @@ class TsonError {
 }
 
 class _BinarySerializer {
-  static const String VERSION = "1.0.0";
+  static const String VERSION = "1.1.0";
   static const int TYPE_LENGTH_IN_BYTES = 1;
   static const int NULL_TERMINATED_LENGTH_IN_BYTES = 1;
   static const int ELEMENT_LENGTH_IN_BYTES = 4;
 
-  static const int STRING_TYPE = 0;
-  static const int INTEGER_TYPE = 1;
-  static const int DOUBLE_TYPE = 2;
-  static const int BOOL_TYPE = 3;
+  static const int NULL_TYPE = 0;
+  static const int STRING_TYPE = 1;
+  static const int INTEGER_TYPE = 2;
+  static const int DOUBLE_TYPE = 3;
+  static const int BOOL_TYPE = 4;
 
   static const int LIST_TYPE = 10;
   static const int MAP_TYPE = 11;
@@ -45,6 +46,8 @@ class _BinarySerializer {
 
   static const int LIST_FLOAT32_TYPE = 110;
   static const int LIST_FLOAT64_TYPE = 111;
+
+  static const int LIST_STRING_TYPE = 112;
 
   td.Uint8List _bytes;
   td.ByteData _byteData;
@@ -62,7 +65,9 @@ class _BinarySerializer {
 
   void _initializeFromObject(object) {
     _intByteOffset = 0;
-    var size = TYPE_LENGTH_IN_BYTES + VERSION.codeUnits.length + NULL_TERMINATED_LENGTH_IN_BYTES;
+    var size = TYPE_LENGTH_IN_BYTES +
+        VERSION.codeUnits.length +
+        NULL_TERMINATED_LENGTH_IN_BYTES;
     size += TYPE_LENGTH_IN_BYTES + ELEMENT_LENGTH_IN_BYTES;
     size += _computeMapOrListSize(object);
 
@@ -77,6 +82,15 @@ class _BinarySerializer {
   _addType(int type) {
     _byteData.setUint8(_byteOffset, type);
     _byteOffset++;
+  }
+
+  _addLength(int len) {
+    _byteData.setUint32(_byteOffset, len, td.Endianness.LITTLE_ENDIAN);
+    _byteOffset += 4;
+  }
+
+  addNull() {
+    _addType(NULL_TYPE);
   }
 
   int _readObjectType() {
@@ -143,7 +157,7 @@ class _BinarySerializer {
       _addType(LIST_FLOAT64_TYPE);
       len = object.length;
     } else {
-      throw new TsonError(404, "unknown.typed.data","unknown typed data");
+      throw new TsonError(404, "unknown.typed.data", "unknown typed data");
     }
     _byteData.setUint32(_byteOffset, len, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
@@ -155,23 +169,31 @@ class _BinarySerializer {
 
   _addList(List object) {
     _addType(LIST_TYPE);
-    _byteData.setUint32(_byteOffset, object.length, td.Endianness.LITTLE_ENDIAN);
-    _byteOffset += 4;
+    _addLength(object.length);
     object.forEach(_add);
   }
 
   _addMap(Map object) {
     _addType(MAP_TYPE);
-    _byteData.setUint32(_byteOffset, object.length, td.Endianness.LITTLE_ENDIAN);
-    _byteOffset += 4;
+    _addLength(object.length);
     object.forEach((k, v) {
+      if (k is! String) throw new TsonError(
+          500, "wrong.map.key.format", "Map key must be a String");
       _add(k);
       _add(v);
     });
   }
 
+  _addCStringList(CStringList object) {
+    _addType(LIST_STRING_TYPE);
+    _addLength(object.lengthInBytes);
+    _bytes.setRange(_byteOffset, _byteOffset + object.lengthInBytes, object.toBytes());
+  }
+
   void _add(object) {
-    if (object is String) {
+    if (object == null) {
+      addNull();
+    } else if (object is String) {
       _addString(object);
     } else if (object is int) {
       _addInt(object);
@@ -185,8 +207,11 @@ class _BinarySerializer {
       _addList(object);
     } else if (object is Map) {
       _addMap(object);
+    } else if (object is CStringList) {
+      _addCStringList(object);
     } else {
-      throw new TsonError(404, "unknown.value.type","Unknow value type : ${object.runtimeType}");
+      throw new TsonError(404, "unknown.value.type",
+          "Unknow value type : ${object.runtimeType}");
     }
   }
 
@@ -202,15 +227,17 @@ class _BinarySerializer {
         size += _computeObjectSize(v) + TYPE_LENGTH_IN_BYTES;
       });
     } else {
-      throw new TsonError(404, "unknown.value.type","Unknow value type : ${object.runtimeType}");
-
+      throw new TsonError(404, "unknown.value.type",
+          "Unknow value type : ${object.runtimeType}");
     }
 
     return size;
   }
 
   int _computeObjectSize(object) {
-    if (object is String) {
+    if (object == null) {
+      return 0;
+    } else if (object is String) {
       return object.codeUnits.length + NULL_TERMINATED_LENGTH_IN_BYTES;
     } else if (object is int) {
       return 4;
@@ -220,12 +247,15 @@ class _BinarySerializer {
       return 4;
     } else if (object is td.TypedData) {
       return object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
+    } else if (object is CStringList) {
+      return object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
     } else if (object is List) {
       return _computeMapOrListSize(object) + ELEMENT_LENGTH_IN_BYTES;
     } else if (object is Map) {
       return _computeMapOrListSize(object) + ELEMENT_LENGTH_IN_BYTES;
     } else {
-      throw new TsonError(404, "unknown.value.type","Unknow value type : ${object.runtimeType}");
+      throw new TsonError(404, "unknown.value.type",
+          "Unknow value type : ${object.runtimeType}");
     }
   }
 
@@ -234,16 +264,18 @@ class _BinarySerializer {
   Object toObject() {
     _byteOffset = _intByteOffset;
     var version = _readObject();
-    if (version != VERSION) throw new TsonError(500, "version.mismatch","TSON version mismatch, found : $version , expected : $VERSION");
+    if (version != VERSION) throw new TsonError(500, "version.mismatch",
+        "TSON version mismatch, found : $version , expected : $VERSION");
     return _readObject();
   }
 
   Map _readMap() {
-    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
-    _byteOffset += 4;
+    final len = _readLength();
     var answer = new Map();
     for (int i = 0; i < len; i++) {
       var key = _readObject();
+      if (key is! String) throw new TsonError(
+          500, "wrong.map.key.format", "Map key must be a String");
       answer[key] = _readObject();
     }
     return answer;
@@ -276,12 +308,24 @@ class _BinarySerializer {
   }
 
   List _readList() {
-    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
-    _byteOffset += 4;
+    final len = _readLength();
     var answer = new List(len);
     for (int i = 0; i < len; i++) {
       answer[i] = _readObject();
     }
+    return answer;
+  }
+
+  int _readLength(){
+    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
+    _byteOffset += 4;
+    return len;
+  }
+
+  CStringList _readCStringList(){
+    var lengthInBytes = _readLength();
+    var answer = new CStringList.fromBytes(_bytes.sublist(_byteOffset,_byteOffset + lengthInBytes));
+    _byteOffset += lengthInBytes;
     return answer;
   }
 
@@ -305,13 +349,13 @@ class _BinarySerializer {
     } else if (type == LIST_FLOAT64_TYPE) {
       return 8;
     } else {
-      throw new TsonError(404, "unknown.typed.data","Unknown typed data $type");
+      throw new TsonError(
+          404, "unknown.typed.data", "Unknown typed data $type");
     }
   }
 
   td.TypedData _readTypedData(int type) {
-    final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
-    _byteOffset += 4;
+    final len = _readLength();
     final elementSize = _elementSizeFromType(type);
     var answer = new td.Uint8List(len * elementSize);
     answer.setRange(0, answer.length, _bytes, _byteOffset);
@@ -336,13 +380,15 @@ class _BinarySerializer {
     } else if (type == LIST_FLOAT64_TYPE) {
       return new td.Float64List.view(answer.buffer);
     } else {
-      throw new TsonError(404, "unknown.typed.data","Unknown typed data");
+      throw new TsonError(404, "unknown.typed.data", "Unknown typed data");
     }
   }
 
   Object _readObject() {
     var type = _readObjectType();
-    if (type == MAP_TYPE) {
+    if (type == NULL_TYPE) {
+      return null;
+    } else if (type == MAP_TYPE) {
       return _readMap();
     } else if (type == STRING_TYPE) {
       return _readString();
@@ -354,6 +400,8 @@ class _BinarySerializer {
       return _readBool();
     } else if (type == LIST_TYPE) {
       return _readList();
+    } else if (type == LIST_STRING_TYPE) {
+      return _readCStringList();
     } else {
       return _readTypedData(type);
     }

@@ -1,14 +1,20 @@
 # TSON
 
-JSON like format for binary serialization. Handle typed data.
+TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like document that support javascript typed data.
 
-# Specification Version 1.0.0
+# Specification Version 1.1.0
 
 TSON is a binary format in which zero or more key/value pairs are stored as a single entity. We call this entity a document.
 
-The following grammar specifies version 1.0.0 of the TSON standard.
+The following grammar specifies version 1.1.0 of the TSON standard.
 We've written the grammar using a pseudo-BNF syntax.
 Valid TSON data is represented by the document non-terminal.
+
+# Changes
+## 1.1.0
+- add type null : null ::= "\x00"
+- change type code for cstring, integer, double and bool types
+- add type cstring_list : cstring_list ::= "\x70" list_length (cstring*)
 
 # Basic Types
 
@@ -36,17 +42,19 @@ Note that we use the * operator as shorthand for repetition (e.g. ("\x01"*2) is 
 When used as a unary operator, * means that the repetition can occur 0 or more times.
 
 ```
-document ::= cstring map_list      TSON Document. cstring is the version of the specification.
+document ::= version map_list      TSON Document. cstring is the version of the specification.
 
 map_list ::= map | list
 list ::= "\x0A" uint32 (element*)     "\x0A" is the code type for list element. uint32 is the length of the list
 map ::= "\x0B" uint32 (key_value*)    "\x0B" is the code type for map element. uint32 is the length of the map
 key_value ::= cstring element
 element ::= map_list
+	   | null 
            | integer
            | double
            | bool
            | cstring
+	   | cstring_list
            | uint8_list
            | uint16_list
            | uint32_list
@@ -57,18 +65,24 @@ element ::= map_list
            | float32_list
            | float64_list
 
-cstring	::=	"\x00" (uint8*) "\x00"           First "\x00" is the code type for cstring element
-integer ::= "\x01" int32
-double ::= "\x02" float64
-bool ::= "\x03" uint8
+version ::= cstring
+null ::= "\x00"
+cstring	::= "\x01" (uint8*) null           First "\x00" is the code type for cstring element
+integer ::= "\x02" int32
+double ::= "\x03" float64
+bool ::= "\x04" uint8
 
-uint8_list ::= "\x64" uint32 (uint8*)
-uint16_list ::= "\x65" uint32 (uint16*)
-uint32_list ::= "\x66" uint32 (uint32*)
-int8_list ::= "\x67" uint32 (int8*)
-int16_list ::= "\x68" uint32 (int16*)
-int32_list ::= "\x69" uint32 (int32*)
-int64_list ::= "\x6A" uint32 (int64*)
-float32_list ::= "\x6E" uint32 (float32*)
-float64_list ::= "\x6F" uint32 (float64*)
+list_length ::= uint32
+list_length_in_bytes ::= uint32
+ 
+uint8_list ::= "\x64" list_length (uint8*)
+uint16_list ::= "\x65" list_length (uint16*)
+uint32_list ::= "\x66" list_length (uint32*)
+int8_list ::= "\x67" list_length (int8*)
+int16_list ::= "\x68" list_length (int16*)
+int32_list ::= "\x69" list_length (int32*)
+int64_list ::= "\x6A" list_length (int64*)
+float32_list ::= "\x6E" list_length (float32*)
+float64_list ::= "\x6F" list_length (float64*)
+cstring_list ::= "\x70" list_length_in_bytes (cstring*)
 ```

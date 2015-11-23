@@ -2,23 +2,38 @@ library tson.test;
 
 import 'package:test/test.dart';
 
-import 'package:tson/tson.dart'as TSON;
+import 'package:tson/tson.dart' as TSON;
 import 'dart:typed_data' as td;
 
 main() {
   group('binary_serializer', () {
-    test('Empty list', (){
+    test('Empty list', () {
       var bytes = TSON.encode([]);
       print(bytes);
     });
 
-    test('Simpl list', (){
-      var bytes = TSON.encode(["a",42,42.0]);
+    test('Simple list', () {
+      var bytes = TSON.encode(["a", 42, 42.0]);
+      print(bytes);
+    });
+
+    test('Simple map', () {
+      var bytes = TSON.encode({"a": "a", "i": 42, "d": 42.0});
+      print(bytes);
+    });
+
+    test('Simple map of int32, float32 and float64 list', () {
+      var bytes = TSON.encode({
+        "i": new td.Int32List.fromList([42]),
+        "f": new td.Float32List.fromList([42.0]),
+        "d": new td.Float64List.fromList([42.0])
+      });
       print(bytes);
     });
 
     test('binary_serializer', () {
       var map = {
+        "null":null,
         "string": "hello",
         "integer": 42,
         "float": 42.0,
@@ -39,11 +54,13 @@ main() {
         "int32": new td.Int32List.fromList([42, 42]),
         "int64": new td.Int64List.fromList([42, 42]),
         "float32": new td.Float32List.fromList([42.0, 42.0]),
-        "float64": new td.Float64List.fromList([42.0, 42.0])
+        "float64": new td.Float64List.fromList([42.0, 42.0]),
+        "cstringlist": new TSON.CStringList.fromList(["42.0", "42"])
       };
 
-      expect(map, equals(TSON.decode(TSON.encode(map))));
+      var tson_map = TSON.decode(TSON.encode(map));
+      print(tson_map);
+      expect(map, equals(tson_map));
     });
   });
 }
-
