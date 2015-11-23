@@ -2,6 +2,14 @@
 
 Dart implementation of TSON specification.
 
+## CStrinList implements List<String>
+
+A CStringList can efficiently store very large collection of strings, it internally stores its elements in a byte array.
+
+```
+var cstring_list = new TSON.CStringList.fromList(["42.0", "42"])
+```
+
 ```
 library tson.test;
 
@@ -34,7 +42,8 @@ main() {
         "int32": new td.Int32List.fromList([42, 42]),
         "int64": new td.Int64List.fromList([42, 42]),
         "float32": new td.Float32List.fromList([42.0, 42.0]),
-        "float64": new td.Float64List.fromList([42.0, 42.0])
+        "float64": new td.Float64List.fromList([42.0, 42.0]),
+        "cstringlist": new TSON.CStringList.fromList(["42.0", "42"])
       };
 
       expect(map, equals(TSON.decode(TSON.encode(map))));
