@@ -125,7 +125,9 @@ test_that("All types", {
               int16=tson.int16.vec(c(42,0)),
               int32=as.integer(c(42,0)),
               float32=tson.float32.vec(c(0.0, 42.0)),
-              float64=c(42.0,42.0)
+              float64=c(42.0,42.0),
+              map=list(x=42, y=42, label="42"),
+              list=list("42",42)
   )
   bytes = toTSON(list)
   print(as.integer(bytes))
