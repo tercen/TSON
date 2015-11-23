@@ -21,7 +21,7 @@ pubspec.lock
 doc/api/
 
 # JetBrains IDEs (WebStorm and IDEA are the recomended Dart IDEs)
-.idea/
+.idea
 *.iml
 *.ipr
 *.iws
