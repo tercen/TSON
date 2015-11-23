@@ -11,6 +11,7 @@ main() {
 
       var cstring_list = new TSON.CStringList.fromList(["hello", "tson"]);
 
+      expect(cstring_list.lengthInBytes , equals(11));
       expect(cstring_list.length , equals(2));
       expect(cstring_list[0] , "hello");
       expect(cstring_list[1] , "tson");

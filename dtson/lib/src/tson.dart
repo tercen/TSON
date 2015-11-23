@@ -65,10 +65,7 @@ class _BinarySerializer {
 
   void _initializeFromObject(object) {
     _intByteOffset = 0;
-    var size = TYPE_LENGTH_IN_BYTES +
-        VERSION.codeUnits.length +
-        NULL_TERMINATED_LENGTH_IN_BYTES;
-    size += TYPE_LENGTH_IN_BYTES + ELEMENT_LENGTH_IN_BYTES;
+    var size = _computeObjectSize(VERSION);
     size += _computeMapOrListSize(object);
 
     _bytes = new td.Uint8List(size);
@@ -216,15 +213,18 @@ class _BinarySerializer {
   }
 
   int _computeMapOrListSize(object) {
-    var size = 0;
+    var size = TYPE_LENGTH_IN_BYTES + ELEMENT_LENGTH_IN_BYTES;
     if (object is Map) {
       object.forEach((k, v) {
-        size += _computeObjectSize(k) + TYPE_LENGTH_IN_BYTES;
-        size += _computeObjectSize(v) + TYPE_LENGTH_IN_BYTES;
+        size += _computeObjectSize(k);
+        size += _computeObjectSize(v);
       });
-    } else if (object is List) {
+    } else if (object is CStringList) {
+      size += object.lengthInBytes;
+    }
+     else if (object is List) {
       object.forEach((v) {
-        size += _computeObjectSize(v) + TYPE_LENGTH_IN_BYTES;
+        size += _computeObjectSize(v);
       });
     } else {
       throw new TsonError(404, "unknown.value.type",
@@ -235,28 +235,26 @@ class _BinarySerializer {
   }
 
   int _computeObjectSize(object) {
+    var sizeInBytes = TYPE_LENGTH_IN_BYTES;
     if (object == null) {
-      return 0;
+      sizeInBytes += 0;
     } else if (object is String) {
-      return object.codeUnits.length + NULL_TERMINATED_LENGTH_IN_BYTES;
+      sizeInBytes += object.codeUnits.length + NULL_TERMINATED_LENGTH_IN_BYTES;
     } else if (object is int) {
-      return 4;
+      sizeInBytes += 4;
     } else if (object is double) {
-      return 8;
+      sizeInBytes += 8;
     } else if (object is bool) {
-      return 4;
+      sizeInBytes = 4;
     } else if (object is td.TypedData) {
-      return object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
-    } else if (object is CStringList) {
-      return object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
-    } else if (object is List) {
-      return _computeMapOrListSize(object) + ELEMENT_LENGTH_IN_BYTES;
-    } else if (object is Map) {
-      return _computeMapOrListSize(object) + ELEMENT_LENGTH_IN_BYTES;
+      sizeInBytes += object.lengthInBytes + ELEMENT_LENGTH_IN_BYTES;
+    } else if (object is CStringList || object is List || object is Map) {
+      sizeInBytes += _computeMapOrListSize(object);
     } else {
       throw new TsonError(404, "unknown.value.type",
           "Unknow value type : ${object.runtimeType}");
     }
+    return sizeInBytes;
   }
 
   td.Uint8List toBytes() => _bytes;

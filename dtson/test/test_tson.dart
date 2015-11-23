@@ -17,8 +17,8 @@ main() {
       print(bytes);
     });
 
-    test('Simple list', () {
-      var bytes = TSON.encode(["a", 42, 42.0]);
+    test('Simple cstring list', () {
+      var bytes = TSON.encode(new TSON.CStringList.fromList(["42.0", "42"]));
       print(bytes);
     });
 
