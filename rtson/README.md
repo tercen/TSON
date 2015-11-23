@@ -1,6 +1,6 @@
 # TSON
 
-R implementation of TSON specification.
+R implementation of [TSON specification](https://github.com/amaurel/TSON).
 
 ## Note
 
