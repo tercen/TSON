@@ -184,7 +184,8 @@ class _BinarySerializer {
   _addCStringList(CStringList object) {
     _addType(LIST_STRING_TYPE);
     _addLength(object.lengthInBytes);
-    _bytes.setRange(_byteOffset, _byteOffset + object.lengthInBytes, object.toBytes());
+    _bytes.setRange(
+        _byteOffset, _byteOffset + object.lengthInBytes, object.toBytes());
   }
 
   void _add(object) {
@@ -200,7 +201,7 @@ class _BinarySerializer {
       _addBool(object);
     } else if (object is td.TypedData) {
       _addTypedData(object);
-    }  else if (object is CStringList) {
+    } else if (object is CStringList) {
       _addCStringList(object);
     } else if (object is List) {
       _addList(object);
@@ -221,8 +222,9 @@ class _BinarySerializer {
       });
     } else if (object is CStringList) {
       size += object.lengthInBytes;
-    }
-     else if (object is List) {
+    } else if (object is td.TypedData) {
+      size += object.lengthInBytes;
+    } else if (object is List) {
       object.forEach((v) {
         size += _computeObjectSize(v);
       });
@@ -314,15 +316,16 @@ class _BinarySerializer {
     return answer;
   }
 
-  int _readLength(){
+  int _readLength() {
     final len = _byteData.getUint32(_byteOffset, td.Endianness.LITTLE_ENDIAN);
     _byteOffset += 4;
     return len;
   }
 
-  CStringList _readCStringList(){
+  CStringList _readCStringList() {
     var lengthInBytes = _readLength();
-    var answer = new CStringList.fromBytes(_bytes.sublist(_byteOffset,_byteOffset + lengthInBytes));
+    var answer = new CStringList.fromBytes(
+        _bytes.sublist(_byteOffset, _byteOffset + lengthInBytes));
     _byteOffset += lengthInBytes;
     return answer;
   }
@@ -398,7 +401,7 @@ class _BinarySerializer {
       return _readBool();
     } else if (type == LIST_STRING_TYPE) {
       return _readCStringList();
-    }  else if (type == LIST_TYPE) {
+    } else if (type == LIST_TYPE) {
       return _readList();
     } else {
       return _readTypedData(type);

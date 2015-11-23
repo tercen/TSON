@@ -17,6 +17,11 @@ main() {
       print(bytes);
     });
 
+    test('Simple int32 list', () {
+      var bytes = TSON.encode(new td.Int32List.fromList([42]));
+      print(bytes);
+    });
+
     test('Simple cstring list', () {
       var bytes = TSON.encode(new TSON.CStringList.fromList(["42.0", "42"]));
       print(bytes);

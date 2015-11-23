@@ -40,6 +40,11 @@ test_that("Simple list", {
   bytes = toTSON(list(tson.scalar("a"), tson.scalar(as.integer(42)), tson.scalar(as.double(42.0)) ))
   print(as.integer(bytes))
 })
+
+test_that("Simple cstring list", {
+  bytes = toTSON(list("42.0","42" ))
+  print(as.integer(bytes))
+})
  
 test_that("Simple map", {
   bytes = toTSON(list(a=tson.scalar("a"), i=tson.scalar(as.integer(42)), d=tson.scalar(42.0) ))

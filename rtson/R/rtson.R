@@ -15,35 +15,34 @@ tson.scalar = function(object){
   return (addAttribute(object, "kind", "scalar"))
 }
 
-VERSION = "1.0.0";
-TYPE_LENGTH_IN_BYTES = 1;
-NULL_TERMINATED_LENGTH_IN_BYTES = 1;
+VERSION = "1.1.0"
+TYPE_LENGTH_IN_BYTES = 1
+NULL_TERMINATED_LENGTH_IN_BYTES = 1
 ELEMENT_LENGTH_IN_BYTES = 4;
 
-STRING_TYPE = 0;
-INTEGER_TYPE = 1;
-DOUBLE_TYPE = 2;
-BOOL_TYPE = 3;
+NULL_TYPE = 0
+STRING_TYPE = 1
+INTEGER_TYPE = 2
+DOUBLE_TYPE = 3
+BOOL_TYPE = 4
 
-LIST_TYPE = 10;
-MAP_TYPE = 11;
+LIST_TYPE = 10
+MAP_TYPE = 11
 
-LIST_UINT8_TYPE = 100;
-LIST_UINT16_TYPE = 101;
-LIST_UINT32_TYPE = 102;
+LIST_UINT8_TYPE = 100
+LIST_UINT16_TYPE = 101
+LIST_UINT32_TYPE = 102
 
-LIST_INT8_TYPE = 103;
-LIST_INT16_TYPE = 104;
-LIST_INT32_TYPE = 105;
-LIST_INT64_TYPE = 106;
+LIST_INT8_TYPE = 103
+LIST_INT16_TYPE = 104
+LIST_INT32_TYPE = 105
+LIST_INT64_TYPE = 106
 
-LIST_FLOAT32_TYPE = 110;
-LIST_FLOAT64_TYPE = 111;
+LIST_FLOAT32_TYPE = 110
+LIST_FLOAT64_TYPE = 111
 
-LIST_STRING_TYPE = 120;
-
-
-
+LIST_STRING_TYPE = 112
+ 
 addAttribute = function(object, name, value){
   attr = attributes(object)
   if (is.null(attr)){
@@ -55,6 +54,8 @@ addAttribute = function(object, name, value){
   attributes(object) <- attr 
   return (object)
 }
+
+
 
 Serializer <- R6Class(
   "Serializer",
@@ -88,9 +89,8 @@ Serializer <- R6Class(
       }
     },
     addObject = function(object){
-      if (is.list(object)){
-        self$addListOrMap(object)
-      } else if (is.character(object)){
+      
+      if (is.character(object)){
         if (length(object) == 1){
           attr = attributes(object)
           if (!is.null(attr) && !is.null(attr$kind) && attr$kind == "scalar"){
@@ -123,6 +123,8 @@ Serializer <- R6Class(
         } else {
           self$addDoubleList(object)
         }
+      } else if (is.list(object)){
+        self$addListOrMap(object)
       } else {
         stop("unknwon object type")
       }
@@ -150,12 +152,13 @@ Serializer <- R6Class(
     },
     addStringList = function(object){
       self$addType(LIST_STRING_TYPE)
-      self$addLength(length(object))
-      self$addBuffer(writeBin(object, raw(0)))
+      bin = writeBin(object, raw(0))
+      self$addLength(length(bin))
+      self$addBuffer(bin)
     },
     addInteger = function(object){
       self$addType(INTEGER_TYPE)
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian =  "little"))
+      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian = "little"))
     },
     addIntegerList = function(object){
       attr = attributes(object)
