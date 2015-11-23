@@ -1,6 +1,6 @@
 name: tson
-description: JSON like format for binary serialization. Handle typed data.
-version: 1.0.0
+description: TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like document that support javascript typed data.
+version: 1.1.0
 author: am <alexandre.maurel@gmail.com>
 homepage: https://github.com/amaurel/TSON
 
