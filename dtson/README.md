@@ -1,6 +1,6 @@
 # TSON
 
-Dart implementation of TSON specification.
+Dart implementation of [TSON specification](https://github.com/amaurel/TSON).
 
 ## CStrinList implements List<String>
 
