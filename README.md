@@ -15,6 +15,7 @@ Valid TSON data is represented by the document non-terminal.
 - add type null : null ::= "\x00"
 - change type code for cstring, integer, double and bool types
 - add type cstring_list : cstring_list ::= "\x70" list_length (cstring*)
+- add 
 
 # Basic Types
 
@@ -44,7 +45,7 @@ When used as a unary operator, * means that the repetition can occur 0 or more t
 ```
 document ::= version map_list      TSON Document. cstring is the version of the specification.
 
-map_list ::= map | list
+map_list ::= map | list | uint8_list | uint16_list | uint32_list | int8_list | int16_list | int32_list | float32_list | float64_list | cstring_list
 list ::= "\x0A" uint32 (element*)     "\x0A" is the code type for list element. uint32 is the length of the list
 map ::= "\x0B" uint32 (key_value*)    "\x0B" is the code type for map element. uint32 is the length of the map
 key_value ::= cstring element
