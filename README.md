@@ -2,6 +2,11 @@
 
 TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like document that support javascript typed data.
 
+# Implementations
+
+- Dart
+- R
+
 # Specification Version 1.1.0
 
 TSON is a binary format in which zero or more key/value pairs are stored as a single entity. We call this entity a document.
