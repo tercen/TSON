@@ -64,7 +64,7 @@ element ::= map_list
        | integer
        | double
        | bool
-       | cstring
+       | cstring 
 
 version ::= cstring
 null ::= "\x00"
