@@ -51,20 +51,20 @@ map ::= "\x0B" uint32 (key_value*)    "\x0B" is the code type for map element. u
 key_value ::= cstring element
 element ::= map_list
 	   | null 
-           | integer
-           | double
-           | bool
-           | cstring
+       | integer
+       | double
+       | bool
+       | cstring
 	   | cstring_list
-           | uint8_list
-           | uint16_list
-           | uint32_list
-           | int8_list
-           | int16_list
-           | int32_list
-           | int64_list
-           | float32_list
-           | float64_list
+       | uint8_list
+       | uint16_list
+       | uint32_list
+       | int8_list
+       | int16_list
+       | int32_list
+       | int64_list
+       | float32_list
+       | float64_list
 
 version ::= cstring
 null ::= "\x00"
