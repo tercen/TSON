@@ -17,6 +17,11 @@ main() {
       print(bytes);
     });
 
+    test('Simple list', () {
+      var bytes = TSON.encode(["a", 42, 42.0]);
+      print(bytes);
+    });
+
     test('Simple map', () {
       var bytes = TSON.encode({"a": "a", "i": 42, "d": 42.0});
       print(bytes);

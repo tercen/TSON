@@ -203,12 +203,12 @@ class _BinarySerializer {
       _addBool(object);
     } else if (object is td.TypedData) {
       _addTypedData(object);
+    }  else if (object is CStringList) {
+      _addCStringList(object);
     } else if (object is List) {
       _addList(object);
     } else if (object is Map) {
       _addMap(object);
-    } else if (object is CStringList) {
-      _addCStringList(object);
     } else {
       throw new TsonError(404, "unknown.value.type",
           "Unknow value type : ${object.runtimeType}");
@@ -398,10 +398,10 @@ class _BinarySerializer {
       return _readDouble();
     } else if (type == BOOL_TYPE) {
       return _readBool();
-    } else if (type == LIST_TYPE) {
-      return _readList();
     } else if (type == LIST_STRING_TYPE) {
       return _readCStringList();
+    }  else if (type == LIST_TYPE) {
+      return _readList();
     } else {
       return _readTypedData(type);
     }
