@@ -113,3 +113,24 @@ test_that("Simple map of int32, float32 and float64 list", {
   object = fromTSON(bytes)
   expect_equal_list(object, list)
 })
+
+test_that("All types", {
+  list = list(integer=42L,
+              double=42,
+              bool=TRUE,
+              uint8=tson.uint8.vec(c(42,0)),
+              uint16=tson.uint16.vec(c(42,0)),
+              uint32=tson.uint32.vec(c(42,0)),
+              int8=tson.int8.vec(c(42,0)),
+              int16=tson.int16.vec(c(42,0)),
+              int32=as.integer(c(42,0)),
+              float32=tson.float32.vec(c(0.0, 42.0)),
+              float64=c(42.0,42.0)
+  )
+  bytes = toTSON(list)
+  print(as.integer(bytes))
+  object = fromTSON(bytes)
+  expect_equal_list(object, list)
+})
+
+

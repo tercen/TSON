@@ -124,7 +124,7 @@ Deserializer <- R6Class(
     },
     readUint8List = function() self$readTypedList(integer(), 1 , FALSE),
     readUint16List = function() self$readTypedList(integer(), 2, FALSE),
-    readUint32List = function() self$readTypedList(integer(), 4, FALSE),
+    readUint32List = function() self$readTypedList(integer(), 4, TRUE),
     readInt8List = function() self$readTypedList(integer(), 1 , TRUE),
     readInt16List = function() self$readTypedList(integer(), 2, TRUE),
     readInt32List = function() self$readTypedList(integer(), 4, TRUE),

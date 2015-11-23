@@ -17,16 +17,28 @@ tson.map = function(object){
   return (add.tson.attribute(as.list(object), TSON_KIND, MAP_TYPE))
 }
 
-tson.float32.list = function(object){
+tson.float32.vec = function(object){
   return (add.tson.attribute(as.double(object), TSON_KIND, LIST_FLOAT32_TYPE))
 }
 
-tson.int8.list = function(object){
+tson.int8.vec = function(object){
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT8_TYPE))
 }
 
-tson.int16.list = function(object){
+tson.int16.vec = function(object){
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT16_TYPE))
+}
+
+tson.uint8.vec = function(object){
+  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT8_TYPE))
+}
+
+tson.uint16.vec = function(object){
+  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT16_TYPE))
+}
+
+tson.uint32.vec = function(object){
+  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT32_TYPE))
 }
 
 tson.scalar = function(object){

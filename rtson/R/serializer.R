@@ -139,6 +139,12 @@ Serializer <- R6Class(
           self$addInt8List(object)
         } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_INT16_TYPE){
           self$addInt16List(object)
+        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT8_TYPE){
+          self$addUInt8List(object)
+        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT16_TYPE){
+          self$addUInt16List(object)
+        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT32_TYPE){
+          self$addUInt32List(object)
         } else {
           self$addInt32List(object)
         }
@@ -161,6 +167,23 @@ Serializer <- R6Class(
       self$addLength(length(object))
       self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian =  "little"))
     },
+    
+    addUInt8List = function(object){
+      self$addType(LIST_UINT8_TYPE)
+      self$addLength(length(object))
+      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=1, endian =  "little"))
+    },
+    addUInt16List = function(object){
+      self$addType(LIST_UINT16_TYPE)
+      self$addLength(length(object))
+      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=2, endian =  "little"))
+    },
+    addUInt32List = function(object){
+      self$addType(LIST_UINT32_TYPE)
+      self$addLength(length(object))
+      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian =  "little"))
+    },
+    
     addDouble = function(object){
       self$addType(DOUBLE_TYPE)
       self$addBuffer(writeBin(as.double(as.vector(object)), raw(0), size=8, endian =  "little"))
