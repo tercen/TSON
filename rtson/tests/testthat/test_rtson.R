@@ -107,7 +107,7 @@ test_that("Simple map", {
 })
 
 test_that("Simple map of int32, float32 and float64 list", {
-  list = list(i=42L, f=tson.float32.list(42.0) , d=as.double(42.0) )
+  list = list(i=42L, f=tson.float32.vec(42.0) , d=as.double(42.0) )
   bytes = toTSON(list)
   print(as.integer(bytes))
   object = fromTSON(bytes)

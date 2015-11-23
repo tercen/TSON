@@ -41,10 +41,6 @@ tson.uint32.vec = function(object){
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT32_TYPE))
 }
 
-tson.scalar = function(object){
-  return (add.tson.attribute(object, TSON_KIND, TSON_SCALAR))
-}
-
 tson.int = function(object){
   return (tson.scalar(as.integer(object)))
 }
@@ -55,4 +51,8 @@ tson.double = function(object){
 
 tson.character = function(object){
   return (tson.scalar(as.character(object)))
+}
+
+tson.scalar = function(object){
+  return (add.tson.attribute(object, TSON_KIND, TSON_SCALAR))
 }

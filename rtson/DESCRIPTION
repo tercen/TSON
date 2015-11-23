@@ -1,9 +1,9 @@
 Package: rtson
 Type: Package
-Title: What the package does (short line)
+Title: TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like document that support javascript typed data.
 Version: 1.0
 Date: 2015-11-22
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Alexandre Maurel
+Maintainer: Alexandre Mmaurel <alexandre.maurel@gmail.com>
+Description: TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like document that support javascript typed data.
+License: Apache License Version 2.0
