@@ -65,16 +65,6 @@ element ::= map_list
        | double
        | bool
        | cstring
-	   | cstring_list
-       | uint8_list
-       | uint16_list
-       | uint32_list
-       | int8_list
-       | int16_list
-       | int32_list
-       | int64_list
-       | float32_list
-       | float64_list
 
 version ::= cstring
 null ::= "\x00"
