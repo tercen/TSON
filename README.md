@@ -15,7 +15,7 @@ Valid TSON data is represented by the document non-terminal.
 - add type null : null ::= "\x00"
 - change type code for cstring, integer, double and bool types
 - add type cstring_list : cstring_list ::= "\x70" list_length (cstring*)
-- add 
+- add typed list to type map_list, it enable typed list to be the root of the document
 
 # Basic Types
 
