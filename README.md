@@ -58,6 +58,7 @@ map_list ::= map
         | int8_list 
         | int16_list 
         | int32_list 
+        | int64_list
         | float32_list 
         | float64_list 
         | cstring_list
