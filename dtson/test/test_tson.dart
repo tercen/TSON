@@ -7,6 +7,7 @@ import 'dart:typed_data' as td;
 
 main() {
   group('binary_serializer', () {
+
     test('Empty list', () {
       var bytes = TSON.encode([]);
       print(bytes);

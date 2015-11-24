@@ -1,3 +1,5 @@
+#' @import R6
+library(R6)
 Deserializer <- R6Class(
   'Deserializer',
   public = list(
