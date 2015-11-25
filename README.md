@@ -6,6 +6,7 @@ TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like docum
 
 - Dart
 - R
+- Smalltalk
 
 # Specification Version 1.1.0
 
