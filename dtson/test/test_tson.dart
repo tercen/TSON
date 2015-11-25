@@ -6,8 +6,8 @@ import 'package:tson/tson.dart' as TSON;
 import 'dart:typed_data' as td;
 
 main() {
-  group('binary_serializer', () {
 
+  group('binary_serializer', () {
     test('Empty list', () {
       var bytes = TSON.encode([]);
       print(bytes);
@@ -29,7 +29,7 @@ main() {
     });
 
     test('Simple int32 list', () {
-      var bytes = TSON.encode(new td.Int32List.fromList([42,42]));
+      var bytes = TSON.encode(new td.Int32List.fromList([42, 42]));
       print(bytes);
     });
 
@@ -54,7 +54,7 @@ main() {
 
     test('binary_serializer', () {
       var map = {
-        "null":null,
+        "null": null,
         "string": "hello",
         "integer": 42,
         "float": 42.0,
