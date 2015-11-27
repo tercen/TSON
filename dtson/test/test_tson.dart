@@ -23,6 +23,11 @@ main() {
       print(bytes);
     });
 
+    test('Simple list with one', () {
+      var bytes = TSON.encode([1]);
+      print(bytes);
+    });
+
     test('Simple list', () {
       var bytes = TSON.encode(["a", true, false, 42, 42.0]);
       print(bytes);
@@ -38,7 +43,12 @@ main() {
       print(bytes);
     });
 
-    test('Simple map', () {
+    test('Simple map 2', () {
+      var bytes = TSON.encode({"a": "a", "d": 42.0});
+      print(bytes);
+    });
+
+    test('Simple map2', () {
       var bytes = TSON.encode({"a": "a", "i": 42, "d": 42.0});
       print(bytes);
     });
@@ -52,7 +62,19 @@ main() {
       print(bytes);
     });
 
-    test('binary_serializer', () {
+    test('factor', () {
+      var map = {
+        "type": "factor",
+        "dictionary": new TSON.CStringList.fromList(["sample1", "sample2"]),
+        "data": [0,0,1,1,0,1,1,1,1,0,0,0,0,1]
+      };
+
+      var tson_map = TSON.decode(TSON.encode(map));
+      print(tson_map);
+      expect(map, equals(tson_map));
+    });
+
+    test('all types', () {
       var map = {
         "null": null,
         "string": "hello",

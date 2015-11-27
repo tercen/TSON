@@ -6,6 +6,13 @@ R implementation of [TSON specification](https://github.com/amaurel/TSON).
 
 Type int64 is not yet implemented.
 
+## Changes
+### 1.1
+
+- package now export tson.scalar
+- tson.scalar, tson.character ... return NULL if given object is NULL
+- values can be NULL in maps
+
 
 ## Example
 

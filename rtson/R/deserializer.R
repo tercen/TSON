@@ -107,9 +107,14 @@ Deserializer <- R6Class(
       if (len > 0){
         keys = list()
         list = list()
-        for (i in seq(1,len)){
+        for (i in 1:len){
           keys[[i]] = self$readObject()
-          list[[i]] = self$readObject()
+          value = self$readObject()
+          if (is.null(value)){
+            list[i] = list(NULL)
+          } else {
+            list[[i]] = value
+          }
         }
         names(list) = keys
       } else {
@@ -134,8 +139,12 @@ Deserializer <- R6Class(
     readFloat64List = function() self$readTypedList(double(), 8, TRUE),
     readStringList = function(){
       lengthInBytes = self$readLength()
-      bytes = self$bytes[self$offset:(self$offset+lengthInBytes)]
-      object = readBin(bytes, character())
+      bytes = self$bytes[self$offset:(self$offset+lengthInBytes-1)]
+      n = 0
+      for (i in bytes){
+        if (i == 0) n = n + 1
+      }
+      object = readBin(bytes, character(), n=n)
       self$offset = self$offset + lengthInBytes
       return (object)
     }

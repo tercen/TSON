@@ -186,6 +186,7 @@ class _BinarySerializer {
     _addLength(object.lengthInBytes);
     _bytes.setRange(
         _byteOffset, _byteOffset + object.lengthInBytes, object.toBytes());
+    _byteOffset += object.lengthInBytes;
   }
 
   void _add(object) {

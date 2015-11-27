@@ -38,6 +38,15 @@ test_that("Empty map", {
   expect_equal_list(object, list)
 })
 
+test_that("Null scalar character", {
+  list = list(a=tson.character(NULL))
+  list = list(a=NULL)
+  bytes = toTSON(list)
+  #   print(as.integer(bytes))
+  object = fromTSON(bytes)
+  expect_equal_list(object, list)
+})
+
 test_that("Simple list", {
   list = list(tson.character("a"), TRUE, FALSE, tson.int(42L), tson.double(42.0) )
   bytes = toTSON(list)
@@ -55,7 +64,7 @@ test_that("Simple int32 list", {
 })
 
 test_that("Simple cstring list", {
-  list = list("42.0","42")
+  list = c("42.0","42")
   bytes = toTSON(list)
   #   print(as.integer(bytes))
   object = fromTSON(bytes)
@@ -79,9 +88,11 @@ test_that("Simple map of int32, float32 and float64 list", {
 })
 
 test_that("All types", {
-  list = list(integer=42L,
-              double=42,
-              bool=TRUE,
+  list = list(string=tson.scalar("string"),
+              integer=tson.scalar(42L),  
+              double=tson.scalar(42),  
+              bool=tson.scalar(TRUE),  
+              cstringlist=c("42",42.0),
               uint8=tson.uint8.vec(c(42,0)),
               uint16=tson.uint16.vec(c(42,0)),
               uint32=tson.uint32.vec(c(42,0)),
@@ -90,7 +101,7 @@ test_that("All types", {
               int32=as.integer(c(42,0)),
               float32=tson.float32.vec(c(0.0, 42.0)),
               float64=c(42.0,42.0),
-              map=list(x=42, y=42, label="42"),
+              map=list(x=42, y=42, label=tson.scalar("mylabel")),
               list=list("42",42)
   )
   bytes = toTSON(list)

@@ -21,6 +21,7 @@ add.tson.attribute = function(object, name, value){
 #' @return A tson map
 #' @export
 tson.map = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.list(object), TSON_KIND, MAP_TYPE))
 }
 
@@ -31,6 +32,7 @@ tson.map = function(object){
 #' @return A tson float32 vector 
 #' @export
 tson.float32.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.double(object), TSON_KIND, LIST_FLOAT32_TYPE))
 }
 
@@ -41,6 +43,7 @@ tson.float32.vec = function(object){
 #' @return A tson int8 vector 
 #' @export
 tson.int8.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT8_TYPE))
 }
 
@@ -51,6 +54,7 @@ tson.int8.vec = function(object){
 #' @return A tson int16 vector 
 #' @export
 tson.int16.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT16_TYPE))
 }
 
@@ -61,6 +65,7 @@ tson.int16.vec = function(object){
 #' @return A tson uint8 vector 
 #' @export
 tson.uint8.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT8_TYPE))
 }
 
@@ -71,6 +76,7 @@ tson.uint8.vec = function(object){
 #' @return A tson uint16 vector 
 #' @export
 tson.uint16.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT16_TYPE))
 }
 
@@ -81,6 +87,7 @@ tson.uint16.vec = function(object){
 #' @return A tson uint32 vector 
 #' @export
 tson.uint32.vec = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT32_TYPE))
 }
 
@@ -91,6 +98,7 @@ tson.uint32.vec = function(object){
 #' @return A tson integer
 #' @export
 tson.int = function(object){
+  if (is.null(object)) return(NULL)
   return (tson.scalar(as.integer(object)))
 }
 
@@ -101,6 +109,7 @@ tson.int = function(object){
 #' @return A tson double
 #' @export
 tson.double = function(object){
+  if (is.null(object)) return(NULL)
   return (tson.scalar(as.double(object)))
 }
 
@@ -110,9 +119,16 @@ tson.double = function(object){
 #' @return A tson character 
 #' @export
 tson.character = function(object){
+  if (is.null(object)) return(NULL)
   return (tson.scalar(as.character(object)))
 }
 
+#' Make a tson scalar (ie: singleton)
+#' 
+#' @param object A vector or list
+#' @return A tson scalar 
+#' @export
 tson.scalar = function(object){
+  if (is.null(object)) return(NULL)
   return (add.tson.attribute(object, TSON_KIND, TSON_SCALAR))
 }
