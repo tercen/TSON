@@ -12,6 +12,7 @@ Type int64 is not yet implemented.
 - package now export tson.scalar
 - tson.scalar, tson.character ... return NULL if given object is NULL
 - values can be NULL in maps
+- correct endianess for readBin
 
 
 ## Example
