@@ -25,7 +25,7 @@ expect_equal_list = function(found, expected){
 test_that("Empty list", {
   list = list()
   bytes = toTSON(list)
-  #   print(as.integer(bytes))
+#     print(as.integer(bytes))
   object = fromTSON(bytes)
   expect_equal_list(object, list)
 })

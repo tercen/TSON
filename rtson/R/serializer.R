@@ -3,25 +3,20 @@ library(R6)
 Serializer <- R6Class(
   "Serializer",
   public = list(
-    bytes = NULL,
-    bufferList = NULL,
-    initialize = function(object){
-      self$bufferList = list()
+    con = NULL,
+    initialize = function(object, con){
+      if (!inherits(con,'connection')) stop("con must be of type connection")
+      if (!isOpen(con, rw='w')) stop("con must be open read")
+      
+      self$con = con
       self$addString(TSON_SPEC_VERSION)
       self$addRootObject(object)
-      self$bytes = unlist(do.call("c" , self$bufferList))
-      self$bufferList = NULL
-    },
-    addBuffer = function(buffer){
-      list = self$bufferList
-      list[[length(list)+1]] <- buffer
-      self$bufferList <- list 
     },
     addType = function(type){
-      self$addBuffer(writeBin(as.integer(type), raw(0), size=1, endian =  "little"))
+      writeBin(as.integer(type), self$con, size=1, endian =  "little")
     },
     addLength = function(len){
-      self$addBuffer(writeBin(as.integer(len), raw(0), size=4, endian =  "little"))
+      writeBin(as.integer(len), self$con, size=4, endian =  "little")
     },
     addListOrMap = function(object){
       names = names(object)
@@ -101,7 +96,7 @@ Serializer <- R6Class(
       bool = 0
       if (object) bool = 1
       self$addType(BOOL_TYPE)
-      self$addBuffer(writeBin(as.integer(bool), raw(0), size=1, endian =  "little"))
+      writeBin(as.integer(bool), self$con, size=1, endian =  "little")
     },
     addList = function(object){
       self$addType(LIST_TYPE)
@@ -122,17 +117,17 @@ Serializer <- R6Class(
     },
     addString = function(object){
       self$addType(STRING_TYPE)
-      self$addBuffer(writeBin(as.vector(object), raw(0)))
+      writeBin(as.vector(object), self$con)
     },
     addStringList = function(object){
       self$addType(LIST_STRING_TYPE)
       bin = writeBin(object, raw(0))
       self$addLength(length(bin))
-      self$addBuffer(bin)
+      writeBin(bin, self$con)
     },
     addInteger = function(object){
       self$addType(INTEGER_TYPE)
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian = "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=4, endian = "little")
     },
     addIntegerList = function(object){
       attr = attributes(object)
@@ -157,38 +152,38 @@ Serializer <- R6Class(
     addInt8List = function(object){
       self$addType(LIST_INT8_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=1, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=1, endian =  "little")
     },
     addInt16List = function(object){
       self$addType(LIST_INT16_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=2, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=2, endian =  "little")
     },
     addInt32List = function(object){
       self$addType(LIST_INT32_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=4, endian =  "little")
     },
     
     addUInt8List = function(object){
       self$addType(LIST_UINT8_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=1, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=1, endian =  "little")
     },
     addUInt16List = function(object){
       self$addType(LIST_UINT16_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=2, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=2, endian =  "little")
     },
     addUInt32List = function(object){
       self$addType(LIST_UINT32_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.integer(as.vector(object)), raw(0), size=4, endian =  "little"))
+      writeBin(as.integer(as.vector(object)), self$con, size=4, endian =  "little")
     },
     
     addDouble = function(object){
       self$addType(DOUBLE_TYPE)
-      self$addBuffer(writeBin(as.double(as.vector(object)), raw(0), size=8, endian =  "little"))
+      writeBin(as.double(as.vector(object)), self$con, size=8, endian =  "little")
     },
     addDoubleList = function(object){
       attr = attributes(object)
@@ -205,12 +200,12 @@ Serializer <- R6Class(
     addFloat32List = function(object){
       self$addType(LIST_FLOAT32_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.double(as.vector(object)), raw(0), size=4, endian =  "little"))
+      writeBin(as.double(as.vector(object)), self$con, size=4, endian =  "little")
     },
     addFloat64List = function(object){
       self$addType(LIST_FLOAT64_TYPE)
       self$addLength(length(object))
-      self$addBuffer(writeBin(as.double(as.vector(object)), raw(0), size=8, endian =  "little"))
+      writeBin(as.double(as.vector(object)), self$con, size=8, endian =  "little")
     }
   )
 )

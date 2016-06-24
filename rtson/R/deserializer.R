@@ -3,26 +3,22 @@ library(R6)
 Deserializer <- R6Class(
   'Deserializer',
   public = list(
-    bytes = NULL,
-    offset = NULL,
+    con = NULL,
     object = NULL,
-    initialize = function(bytes, offset){
-      if (!is.raw(bytes)) stop("bytes must be of type raw")
-      if (is.null(offset)){
-        self$offset = 1
-      } else {
-        if (!is.numeric(offset)) stop("offset must be of type numeric")
-        self$offset = offset 
-      }
-      self$bytes = bytes
+    initialize = function(con = NULL){
+      if (!inherits(con,'connection')) stop("con must be of type connection")
+      if (!isOpen(con, rw='r')) stop("con must be open read")
+      
+      self$con = con
+      #       rawConnection(bytes, "r")
       version = self$readObject()
       if (version != TSON_SPEC_VERSION) stop(paste0("TSON spec version mismatch, found ", version, " expected " , TSON_SPEC_VERSION))
       self$object = self$readObject()
     },
     readType = function() {
-      bytes = self$bytes[self$offset:(self$offset+1)]
-      type = readBin(bytes, integer(), n=1, size=1, endian =  "little")
-      self$offset = self$offset + 1
+      #       bytes = self$bytes[self$offset:(self$offset+1)]
+      type = readBin(self$con, integer(), n=1, size=1, endian =  "little")
+      #       self$offset = self$offset + 1
       return (type)
     },
     readObject = function(){
@@ -64,27 +60,27 @@ Deserializer <- R6Class(
       } 
     },
     readString = function(){
-      bytes = self$bytes[self$offset:length(self$bytes)]
-      object = readBin(bytes, character(), n=1)
-      self$offset = self$offset + nchar(object) + 1
+      #       bytes = self$bytes[self$offset:length(self$bytes)]
+      object = readBin(self$con, character(), n=1)
+      #       self$offset = self$offset + nchar(object) + 1
       return (object)
     },
     readInteger = function(){
-      bytes = self$bytes[self$offset:(self$offset+4)]
-      object = readBin(bytes, integer(), n=1, endian =  "little")
-      self$offset = self$offset + 4
+      #       bytes = self$bytes[self$offset:(self$offset+4)]
+      object = readBin(self$con, integer(), n=1, endian =  "little")
+      #       self$offset = self$offset + 4
       return (object)
     },
     readDouble = function(){
-      bytes = self$bytes[self$offset:(self$offset+8)]
-      object = readBin(bytes, double(), n=1, endian =  "little")
-      self$offset = self$offset + 8
+      #       bytes = self$bytes[self$offset:(self$offset+8)]
+      object = readBin(self$con, double(), n=1, endian =  "little")
+      #       self$offset = self$offset + 8
       return (object)
     },
     readBool = function(){
-      bytes = self$bytes[self$offset:(self$offset+1)]
-      object = readBin(bytes, integer(), n=1, size=1, endian =  "little")
-      self$offset = self$offset + 1
+      #       bytes = self$bytes[self$offset:(self$offset+1)]
+      object = readBin(self$con, integer(), n=1, size=1, endian =  "little")
+      #       self$offset = self$offset + 1
       return (object == 1)
     },
     readLength = function(){
@@ -125,9 +121,9 @@ Deserializer <- R6Class(
     },
     readTypedList = function(what, size, signed){
       len = self$readLength()
-      bytes = self$bytes[self$offset:(self$offset + (len * size))]
-      object = readBin(bytes, what, n=len, size=size, signed = signed, endian =  "little")
-      self$offset = self$offset + (len * size)
+      #       bytes = self$bytes[self$offset:(self$offset + (len * size))]
+      object = readBin(self$con, what, n=len, size=size, signed = signed, endian =  "little")
+      #       self$offset = self$offset + (len * size)
       return (object)
     },
     readUint8List = function() self$readTypedList(integer(), 1 , FALSE),
@@ -139,14 +135,9 @@ Deserializer <- R6Class(
     readFloat32List = function() self$readTypedList(double(), 4, TRUE),
     readFloat64List = function() self$readTypedList(double(), 8, TRUE),
     readStringList = function(){
-      lengthInBytes = self$readLength()
-      bytes = self$bytes[self$offset:(self$offset+lengthInBytes-1)]
-      n = 0
-      for (i in bytes){
-        if (i == 0) n = n + 1
-      }
-      object = readBin(bytes, character(), n=n)
-      self$offset = self$offset + lengthInBytes
+      bytes = self$readTypedList(raw(), 1 , FALSE)  
+      object = readBin(bytes, character(), n=length(bytes[bytes==0]))
+      #       self$offset = self$offset + lengthInBytes
       return (object)
     }
   )
