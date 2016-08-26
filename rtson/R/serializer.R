@@ -118,7 +118,7 @@ Serializer <- R6Class(
     addString = function(object){
       self$addType(STRING_TYPE)
       # to overcone writeBin 10000 chars
-      writeChar(str, nchars=nchar(object), self$con) 
+      writeChar(object, nchars=nchar(object), self$con) 
     },
     addStringList = function(object){
       self$addType(LIST_STRING_TYPE)
