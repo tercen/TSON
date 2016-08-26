@@ -8,6 +8,10 @@ Type int64 is not yet implemented.
 
 ## Changes
 
+### 1.3
+
+- overcome readBin/writeBin character limit (10 kbytes)
+
 ### 1.2
 
 - use of connection object : overall performance should be improved
@@ -20,8 +24,6 @@ Type int64 is not yet implemented.
 - tson.scalar, tson.character ... return NULL if given object is NULL
 - values can be NULL in maps
 - correct endianess for readBin
-
-
 
 ## Example
 

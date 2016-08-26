@@ -1,5 +1,10 @@
 part of tson;
 
+//td.Uint8List encodeJs() {
+//  var o = js.context['TSONObject2Encode'];
+//  return new _BinarySerializer.from(o).toBytes();
+//}
+
 td.Uint8List encode(object) {
   return new _BinarySerializer.from(object).toBytes();
 }
@@ -210,7 +215,7 @@ class _BinarySerializer {
       _addMap(object);
     } else {
       throw new TsonError(404, "unknown.value.type",
-          "Unknow value type : ${object.runtimeType}");
+          "Unknow value type : ${object}");
     }
   }
 
@@ -221,7 +226,16 @@ class _BinarySerializer {
         size += _computeObjectSize(k);
         size += _computeObjectSize(v);
       });
-    } else if (object is CStringList) {
+    }
+//    else if (object is js.JsObject) {
+//      var keys = js.context['Object']['keys'].apply([object]);
+//      keys.forEach((k) {
+//        print("k ${k} object[k] ${object[k]}");
+//        size += _computeObjectSize(k);
+//        size += _computeObjectSize(object[k]);
+//      });
+//    }
+    else if (object is CStringList) {
       size += object.lengthInBytes;
     } else if (object is td.TypedData) {
       size += object.lengthInBytes;
@@ -231,7 +245,7 @@ class _BinarySerializer {
       });
     } else {
       throw new TsonError(404, "unknown.value.type",
-          "Unknow value type : ${object.runtimeType}");
+          "Unknow value type 2: ${object}");
     }
 
     return size;
@@ -255,7 +269,7 @@ class _BinarySerializer {
       sizeInBytes += _computeMapOrListSize(object);
     } else {
       throw new TsonError(404, "unknown.value.type",
-          "Unknow value type : ${object.runtimeType}");
+          "Unknow value type : ${object}");
     }
     return sizeInBytes;
   }

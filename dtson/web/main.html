@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TSON Demo</title>
+
+</head>
+<body>
+
+
+<!--
+    <script type="application/dart" src="main.dart"></script>
+-->
+<script src="js/runtime/dart_library.js"></script>
+<script src="js/runtime/dart_sdk.js"></script>
+<!--
+<script src="js/runtime/run.js"></script>
+-->
+<script src="js/tson.js"></script>
+<script>
+
+
+    let TSONlib = dart_library.import('tson')['lib__tson'];
+
+    console.log(TSONlib);
+
+    TSONObject2Encode = {test:42};
+    console.log(Object.keys(TSONObject2Encode));
+    let bytes = TSONlib.encodeJs();
+
+    console.log(bytes);
+
+</script>
+</body>
+</html>

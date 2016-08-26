@@ -57,7 +57,23 @@ Deserializer <- R6Class(
       } 
     },
     readString = function(){
-      object = readBin(self$con, character(), n=1)
+      block = 1024
+      zz = self$con
+      rr = raw()
+      found = 0
+      while ( found==0 ) {
+        r <- readBin(zz, "raw", block)
+        len = length(r)
+        if( length(w<-head(which(r==0),1)) ) {
+          rr <- c(rr, r[1:(w-1)])
+          found <- 1
+          seek(zz, -(len-w), origin="current") #rewind
+        } else {
+          rr <- c(rr, r)
+        }
+      }
+      
+      object = rawToChar(rr)
       return (object)
     },
     readInteger = function(){
