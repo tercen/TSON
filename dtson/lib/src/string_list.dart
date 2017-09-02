@@ -1,14 +1,15 @@
-part of tson;
+import 'dart:collection';
+import 'dart:typed_data' as td;
 
 class CStringList  extends ListBase<String> implements List<String>  {
 
   td.Uint8List _bytes;
-  td.Uint32List _starts;
+  td.Int32List _starts;
 
   CStringList.fromBytes(this._bytes);
   CStringList.fromList(List<String> list) {
     var lengthInBytes = list.fold(0, (len, str) {
-      if (str == null) throw new Exception("Null values are not allowed.");
+      if (str == null) throw new ArgumentError("Null values are not allowed.");
       return len + str.codeUnits.length + 1;
     });
     _bytes = new td.Uint8List(lengthInBytes);
@@ -23,12 +24,12 @@ class CStringList  extends ListBase<String> implements List<String>  {
   td.Uint8List toBytes() => _bytes;
   int get lengthInBytes => _bytes.length;
 
-  td.Uint32List _buildStarts() {
+  td.Int32List _buildStarts() {
     var len = 0;
     for (int i = 0; i < _bytes.length; i++) {
       if (_bytes[i] == 0) len++;
     }
-    _starts = new td.Uint32List(len + 1);
+    _starts = new td.Int32List(len + 1);
     _starts[0] = 0;
     var offset = 0;
 
@@ -41,7 +42,7 @@ class CStringList  extends ListBase<String> implements List<String>  {
     return _starts;
   }
 
-  td.Uint32List get starts => _starts == null ? _buildStarts() : _starts;
+  td.Int32List get starts => _starts == null ? _buildStarts() : _starts;
 
   int get length => starts.length - 1;
 

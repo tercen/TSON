@@ -1,9 +1,6 @@
-part of tson;
+import 'dart:typed_data' as td;
 
-//td.Uint8List encodeJs() {
-//  var o = js.context['TSONObject2Encode'];
-//  return new _BinarySerializer.from(o).toBytes();
-//}
+import 'string_list.dart';
 
 td.Uint8List encode(object) {
   return new _BinarySerializer.from(object).toBytes();
@@ -48,6 +45,7 @@ class _BinarySerializer {
   static const int LIST_INT16_TYPE = 104;
   static const int LIST_INT32_TYPE = 105;
   static const int LIST_INT64_TYPE = 106;
+  static const int LIST_UINT64_TYPE = 107;
 
   static const int LIST_FLOAT32_TYPE = 110;
   static const int LIST_FLOAT64_TYPE = 111;
@@ -65,7 +63,7 @@ class _BinarySerializer {
 
   _BinarySerializer.fromBytes(this._bytes, [int offset]) {
     _intByteOffset = offset == null ? 0 : offset;
-    _byteData = new td.ByteData.view(_bytes.buffer);
+    _byteData = new td.ByteData.view(_bytes.buffer, _bytes.offsetInBytes);
   }
 
   void _initializeFromObject(object) {
@@ -75,7 +73,7 @@ class _BinarySerializer {
 
     _bytes = new td.Uint8List(size);
     _byteOffset = _intByteOffset;
-    _byteData = new td.ByteData.view(_bytes.buffer);
+    _byteData = new td.ByteData.view(_bytes.buffer, _bytes.offsetInBytes);
     _addString(VERSION);
     _add(object);
     _byteOffset = _intByteOffset;
@@ -157,6 +155,9 @@ class _BinarySerializer {
       len = object.length;
     } else if (object is td.Float64List) {
       _addType(LIST_FLOAT64_TYPE);
+      len = object.length;
+    } else if (object is td.Uint64List) {
+      _addType(LIST_UINT64_TYPE);
       len = object.length;
     } else {
       throw new TsonError(404, "unknown.typed.data", "unknown typed data");
@@ -364,6 +365,8 @@ class _BinarySerializer {
       return 4;
     } else if (type == LIST_FLOAT64_TYPE) {
       return 8;
+    } else if (type == LIST_UINT64_TYPE) {
+      return 8;
     } else {
       throw new TsonError(
           404, "unknown.typed.data", "Unknown typed data $type");
@@ -395,6 +398,8 @@ class _BinarySerializer {
       return new td.Float32List.view(answer.buffer);
     } else if (type == LIST_FLOAT64_TYPE) {
       return new td.Float64List.view(answer.buffer);
+    } else if (type == LIST_UINT64_TYPE) {
+      return new td.Uint64List.view(answer.buffer);
     } else {
       throw new TsonError(404, "unknown.typed.data", "Unknown typed data");
     }

@@ -109,3 +109,16 @@ test_that("All types", {
   expect_equal_list(object, list)
 })
 
+test_that("Test logical to integer", {
+   
+  list = list(
+              logical=as.integer(c(TRUE,FALSE, NA))
+            )
+  bytes = toTSON(list)
+  print(as.integer((bytes)))
+  object = fromTSON(bytes)
+  expect_equal_list(object, list)
+})
+
+
+

@@ -20,6 +20,7 @@ Deserializer <- R6Class(
     },
     readObject = function(){
       type = self$readType()
+      print(cat('readObject type ', type ))
       if (type == NULL_TYPE){
         return(NULL)
       } else if (type == STRING_TYPE){
@@ -47,7 +48,13 @@ Deserializer <- R6Class(
       } else if (type == LIST_INT32_TYPE){
         return(self$readInt32List())
       } else if (type == LIST_INT64_TYPE){
-        return(self$readInt64List())
+        
+        stop('int64 not supported')
+        
+      } else if (type == LIST_UINT64_TYPE){
+        
+        stop('uint64 not supported')
+        
       } else if (type == LIST_FLOAT32_TYPE){
         return(self$readFloat32List())
       } else if (type == LIST_FLOAT64_TYPE){
