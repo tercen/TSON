@@ -20,7 +20,6 @@ Deserializer <- R6Class(
     },
     readObject = function(){
       type = self$readType()
-      print(cat('readObject type ', type ))
       if (type == NULL_TYPE){
         return(NULL)
       } else if (type == STRING_TYPE){

@@ -69,7 +69,9 @@ main() {
         "data": [0,0,1,1,0,1,1,1,1,0,0,0,0,1]
       };
 
-      var tson_map = TSON.decode(TSON.encode(map));
+      var bytes = TSON.encode(map);
+      print(bytes);
+      var tson_map = TSON.decode(bytes);
       print(tson_map);
       expect(map, equals(tson_map));
     });
