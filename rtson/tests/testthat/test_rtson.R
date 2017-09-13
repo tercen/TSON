@@ -115,7 +115,7 @@ test_that("Test logical to integer", {
               logical=as.integer(c(TRUE,FALSE, NA))
             )
   bytes = toTSON(list)
-  print(as.integer((bytes)))
+#   print(as.integer((bytes)))
   object = fromTSON(bytes)
   expect_equal_list(object, list)
 })

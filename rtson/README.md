@@ -8,6 +8,10 @@ Type int64 is not yet implemented.
 
 ## Changes
 
+### 1.4
+
+- use jsonlite scalar definition : jsonlite::unbox and tson.scalar are now compatibles
+
 ### 1.3
 
 - overcome readBin/writeBin character limit (10 kbytes)

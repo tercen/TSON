@@ -1,18 +1,6 @@
 TSON_KIND = "kind"
 TSON_SCALAR = -1
-
-add.tson.attribute = function(object, name, value){
-  attr = attributes(object)
-  if (is.null(attr)){
-    attr <- list()
-    attr[[name]] <- value
-  } else {
-    attr[[name]] = value
-  }
-  attributes(object) <- attr 
-  return (object)
-}
-
+ 
 #' Make a tson map 
 #' 
 #' Required to generate empty map.
@@ -22,7 +10,8 @@ add.tson.attribute = function(object, name, value){
 #' @export
 tson.map = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.list(object), TSON_KIND, MAP_TYPE))
+  class(object) <- c("tsonmap", class(object))
+  return (object)
 }
 
 #' Make a tson float32 vector 
@@ -33,7 +22,8 @@ tson.map = function(object){
 #' @export
 tson.float32.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.double(object), TSON_KIND, LIST_FLOAT32_TYPE))
+  class(object) <- c("float32", class(object))
+  return (object)
 }
 
 #' Make a tson int8 vector 
@@ -44,7 +34,8 @@ tson.float32.vec = function(object){
 #' @export
 tson.int8.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT8_TYPE))
+  class(object) <- c("int8", class(object))
+  return (object)
 }
 
 #' Make a tson int16 vector 
@@ -55,7 +46,8 @@ tson.int8.vec = function(object){
 #' @export
 tson.int16.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_INT16_TYPE))
+  class(object) <- c("int16", class(object))
+  return (object)
 }
 
 #' Make a tson uint8 vector 
@@ -66,7 +58,8 @@ tson.int16.vec = function(object){
 #' @export
 tson.uint8.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT8_TYPE))
+  class(object) <- c("uint8", class(object))
+  return (object)
 }
 
 #' Make a tson uint16 vector 
@@ -77,7 +70,8 @@ tson.uint8.vec = function(object){
 #' @export
 tson.uint16.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT16_TYPE))
+  class(object) <- c("uint16", class(object))
+  return (object)
 }
 
 #' Make a tson uint32 vector 
@@ -88,7 +82,8 @@ tson.uint16.vec = function(object){
 #' @export
 tson.uint32.vec = function(object){
   if (is.null(object)) return(NULL)
-  return (add.tson.attribute(as.integer(object), TSON_KIND, LIST_UINT32_TYPE))
+  class(object) <- c("uint32", class(object))
+  return (object)
 }
 
 #' Make a tson integer
@@ -128,7 +123,27 @@ tson.character = function(object){
 #' @param object A vector or list
 #' @return A tson scalar 
 #' @export
-tson.scalar = function(object){
-  if (is.null(object)) return(NULL)
-  return (add.tson.attribute(object, TSON_KIND, TSON_SCALAR))
+tson.scalar = function(obj){
+  if (is.null(obj)) return(NULL)
+  # Lists can never be a scalar (this can arise if a dataframe contains a column
+  # with lists)
+  if(length(dim(obj)) > 1){
+    if(!identical(nrow(obj), 1L)){
+      warning("Tried to use as.scalar on an array or dataframe with ", nrow(obj), " rows.", call.=FALSE)
+      return(obj)
+    }
+  } else if(!identical(length(obj), 1L)) {
+    warning("Tried to use as.scalar on an object of length ", length(obj), call.=FALSE)
+    return(obj)
+  } else if(is.namedlist(obj)){
+    warning("Tried to use as.scalar on a named list.", call.=FALSE)
+    return(obj)
+  }
+  
+  class(obj) <- c("scalar", class(obj))
+  return(obj)
+}
+
+is.namedlist = function(obj) {
+  return (!is.null(names(obj)))
 }

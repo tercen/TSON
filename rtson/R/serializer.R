@@ -21,8 +21,7 @@ Serializer <- R6Class(
     addListOrMap = function(object){
       names = names(object)
       if (is.null(names)){
-        attr = attributes(object)
-        if (!is.null(attr) && !is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == MAP_TYPE){
+        if (inherits(object,'tsonmap')){
           self$addMap(object)
         } else {
           self$addList(object)
@@ -50,35 +49,20 @@ Serializer <- R6Class(
       }else if (is.logical(object)){
         self$addBool(object)
       } else if (is.character(object)){
-        if (length(object) == 1){
-          attr = attributes(object)
-          if (!is.null(attr) && !is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == TSON_SCALAR){
-            self$addString(object)
-          } else {
-            self$addStringList(object)
-          }
+        if (inherits(object,'scalar')){
+          self$addString(object)
         } else {
           self$addStringList(object)
         }
       } else if (is.integer(object)){
-        if (length(object) == 1){
-          attr = attributes(object)
-          if (!is.null(attr) && !is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == TSON_SCALAR){
-            self$addInteger(object)
-          } else {
-            self$addIntegerList(object)
-          }
+        if (inherits(object,'scalar')){
+          self$addInteger(object)
         } else {
           self$addIntegerList(object)
         }
       } else if (is.double(object)){
-        if (length(object) == 1){
-          attr = attributes(object)
-          if (!is.null(attr) && !is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == TSON_SCALAR){
-            self$addDouble(object)
-          } else {
-            self$addDoubleList(object)
-          }
+        if (inherits(object,'scalar')){
+          self$addDouble(object)
         } else {
           self$addDoubleList(object)
         }
@@ -131,21 +115,16 @@ Serializer <- R6Class(
       writeBin(as.integer(as.vector(object)), self$con, size=4, endian = "little")
     },
     addIntegerList = function(object){
-      attr = attributes(object)
-      if (!is.null(attr)){
-        if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_INT8_TYPE){
-          self$addInt8List(object)
-        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_INT16_TYPE){
-          self$addInt16List(object)
-        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT8_TYPE){
-          self$addUInt8List(object)
-        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT16_TYPE){
-          self$addUInt16List(object)
-        } else if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_UINT32_TYPE){
-          self$addUInt32List(object)
-        } else {
-          self$addInt32List(object)
-        }
+      if (inherits(object, 'int8')){
+        self$addInt8List(object)
+      } else if (inherits(object,'int16')){
+        self$addInt16List(object)
+      } else if (inherits(object,'uint8')){
+        self$addUInt8List(object)
+      } else if (inherits(object,'uint16')){
+        self$addUInt16List(object)
+      } else if (inherits(object,'uint32')){
+        self$addUInt32List(object)
       } else {
         self$addInt32List(object)
       }
@@ -181,19 +160,13 @@ Serializer <- R6Class(
       self$addLength(length(object))
       writeBin(as.integer(as.vector(object)), self$con, size=4, endian =  "little")
     },
-    
     addDouble = function(object){
       self$addType(DOUBLE_TYPE)
       writeBin(as.double(as.vector(object)), self$con, size=8, endian =  "little")
     },
     addDoubleList = function(object){
-      attr = attributes(object)
-      if (!is.null(attr)){
-        if (!is.null(attr[[TSON_KIND]]) && attr[[TSON_KIND]] == LIST_FLOAT32_TYPE){
-          self$addFloat32List(object)
-        } else {
-          self$addFloat64List(object)
-        }
+      if (inherits(object, 'float32')){
+        self$addFloat32List(object)
       } else {
         self$addFloat64List(object)
       }

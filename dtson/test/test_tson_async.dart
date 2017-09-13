@@ -108,13 +108,17 @@ main() {
   });
 
   test('stream provider : map', () async {
-    var values = new td.Uint8List.fromList(new List.generate(10, (i)=>i));
-    var valuesStream = new Stream.fromIterable([values]);
-    var valuesStreamProvider = new TSON.TypedTsonStreamProvider(
-        TSON.TsonSpec.LIST_UINT8_TYPE, 10, valuesStream);
+    var values1 = new td.Uint8List.fromList(new List.generate(10, (i)=>i));
+    var values2 = new td.Uint8List.fromList(new List.generate(10, (i)=>i+1));
 
-    var object = {'values': valuesStreamProvider};
-    var expected = {'values': values};
+    var valuesStreamProvider1 = new TSON.TypedTsonStreamProvider(
+        TSON.TsonSpec.LIST_UINT8_TYPE, 10, new Stream.fromIterable([values1]));
+
+    var valuesStreamProvider2 = new TSON.TypedTsonStreamProvider(
+        TSON.TsonSpec.LIST_UINT8_TYPE, 10, new Stream.fromIterable([values2]));
+
+    var object = {'value1': valuesStreamProvider1, 'value2': valuesStreamProvider2};
+    var expected = {'value1': values1,'value2': values2};
 
     await encodeDecode(object, expected);
   });
