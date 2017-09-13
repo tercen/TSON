@@ -10,6 +10,8 @@ build/
 packages
 pubspec.lock
 
+*.tar.gz
+
 # Files created by dart2js
 *.dart.js
 *.part.js
