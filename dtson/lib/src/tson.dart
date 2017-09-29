@@ -30,7 +30,13 @@ Stream<List<int>> stream(object) {
   return new _StreamSerializer.from(object).controller.stream;
 }
 
-Object decode(td.Uint8List bytes, [int offset]) {
+Object decode(bytesOrBuffer, [int offset]) {
+  td.Uint8List bytes;
+  if (bytesOrBuffer is td.ByteBuffer){
+    bytes = new td.Uint8List.view(bytesOrBuffer);
+  } else if (bytesOrBuffer is td.Uint8List){
+    bytes = bytesOrBuffer;
+  } else throw 'bad type';
   return new _BinarySerializer.fromBytes(bytes, offset).toObject();
 }
 
