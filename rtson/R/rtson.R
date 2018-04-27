@@ -1,4 +1,8 @@
 library(R6)
+
+
+
+
 #' Serialize a list 
 #'
 #' Write TSON specification binary-encoded format to a connection.
@@ -147,9 +151,11 @@ readTSON <- function(con){
 #' 
 #' bytes = toTSON(list)
 #' object = fromTSON(bytes)
+#' @useDynLib rtson rtson_from_tson
 #' @export
 fromTSON <- function(bytes){
   if (!is.raw(bytes)) stop('bytes must a raw vector')
-  con = rawConnection(bytes, "r")
-  return(tryCatch(readTSON(con), finally = close(con)))
+  return(from_tson(bytes))
+  # con = rawConnection(bytes, "r")
+  # return(tryCatch(readTSON(con), finally = close(con)))
 } 

@@ -13,4 +13,4 @@ Suggests:
 Imports: R6
 URL: https://github.com/tercen/TSON
 BugReports: https://github.com/tercen/TSON/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

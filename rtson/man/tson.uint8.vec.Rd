@@ -15,4 +15,3 @@ A tson uint8 vector
 \description{
 Make a tson uint8 vector
 }
-

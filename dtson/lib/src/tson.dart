@@ -2,6 +2,7 @@ library tson;
 
 import 'dart:typed_data' as td;
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:typed_data/typed_data.dart' as tb;
 

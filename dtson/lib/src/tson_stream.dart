@@ -73,7 +73,7 @@ class TsonStreamDecoderTransformer
 }
 
 class TsonStreamEncoderTransformer
-    implements StreamTransformer<Object, List<int>> {
+    implements StreamTransformer<dynamic, List<int>> {
   static List<int> encode(object) {
     var bytes = TSON.encode(object);
     var result = new Uint8List(bytes.length + 4);
@@ -84,7 +84,7 @@ class TsonStreamEncoderTransformer
     return result;
   }
 
-  StreamTransformer<Object, List<int>> _transformer;
+  StreamTransformer<dynamic, List<int>> _transformer;
 
   TsonStreamEncoderTransformer() {
     _transformer = new StreamTransformer.fromHandlers(handleData: _handleData);
@@ -94,7 +94,7 @@ class TsonStreamEncoderTransformer
       sink.add(encode(object));
 
   @override
-  Stream<Object> bind(Stream<List> stream) => _transformer.bind(stream);
+  Stream<List<int>> bind(Stream<dynamic> stream) => _transformer.bind(stream);
 }
 
 

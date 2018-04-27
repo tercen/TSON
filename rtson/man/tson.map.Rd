@@ -15,4 +15,3 @@ A tson map
 \description{
 Required to generate empty map.
 }
-

@@ -4,7 +4,7 @@
 \alias{tson.scalar}
 \title{Make a tson scalar (ie: singleton)}
 \usage{
-tson.scalar(object)
+tson.scalar(obj)
 }
 \arguments{
 \item{object}{A vector or list}
@@ -15,4 +15,3 @@ A tson scalar
 \description{
 Make a tson scalar (ie: singleton)
 }
-

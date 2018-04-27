@@ -44,4 +44,3 @@ close(con)
 con = rawConnection(bytes, "r")
 object = readTSON(con)
 }
-

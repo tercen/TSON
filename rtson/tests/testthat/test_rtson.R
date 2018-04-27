@@ -120,5 +120,5 @@ test_that("Test logical to integer", {
   expect_equal_list(object, list)
 })
 
-
+ 
 

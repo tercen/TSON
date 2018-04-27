@@ -52,7 +52,7 @@ class _BinarySerializer {
   //Null terminated string
   _addString(String object) {
     _addType(TsonSpec.STRING_TYPE);
-    var bytes = object.codeUnits;
+    var bytes = UTF8.encode(object);
     _bytes.setRange(_byteOffset, _byteOffset + bytes.length, bytes);
     _byteOffset += bytes.length;
     _byteData.setUint8(_byteOffset, 0);
@@ -165,8 +165,9 @@ class _BinarySerializer {
     } else if (object is Map) {
       _addMap(object);
     } else {
-      throw new TsonError(404, "unknown.value.type",
-          "Unknow value type : ${object}");
+      _add(object.toJson());
+//      throw new TsonError(404, "unknown.value.type",
+//          "Unknow value type : ${object}");
     }
   }
 
@@ -178,14 +179,6 @@ class _BinarySerializer {
         size += _computeObjectSize(v);
       });
     }
-//    else if (object is js.JsObject) {
-//      var keys = js.context['Object']['keys'].apply([object]);
-//      keys.forEach((k) {
-//        print("k ${k} object[k] ${object[k]}");
-//        size += _computeObjectSize(k);
-//        size += _computeObjectSize(object[k]);
-//      });
-//    }
     else if (object is CStringList) {
       size += object.lengthInBytes;
     } else if (object is td.TypedData) {
@@ -219,8 +212,9 @@ class _BinarySerializer {
     } else if (object is CStringList || object is List || object is Map) {
       sizeInBytes += _computeMapOrListSize(object);
     } else {
-      throw new TsonError(404, "unknown.value.type",
-          "Unknow value type : ${object}");
+      return _computeObjectSize(object.toJson());
+//      throw new TsonError(404, "unknown.value.type",
+//          "Unknow value type : ${object}");
     }
     return sizeInBytes;
   }
@@ -250,7 +244,9 @@ class _BinarySerializer {
   String _readString() {
     var start = _byteOffset;
     while (_byteData.getUint8(_byteOffset) != 0) _byteOffset++;
-    var answer = new String.fromCharCodes(_bytes, start, _byteOffset);
+    var answer = UTF8.decode(new td.Uint8List.view(_bytes.buffer,
+        _bytes.offsetInBytes +start,  _byteOffset - start));
+    //new String.fromCharCodes(_bytes, start, _byteOffset);
     _byteOffset++; //skip null
     return answer;
   }
@@ -328,28 +324,30 @@ class _BinarySerializer {
     final elementSize = _elementSizeFromType(type);
     var answer = new td.Uint8List(len * elementSize);
     answer.setRange(0, answer.length, _bytes, _byteOffset);
+
+
     _byteOffset += answer.length;
 
     if (type == TsonSpec.LIST_UINT8_TYPE) {
       return answer;
     } else if (type == TsonSpec.LIST_UINT16_TYPE) {
-      return new td.Uint16List.view(answer.buffer);
+      return new td.Uint16List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_UINT32_TYPE) {
-      return new td.Uint32List.view(answer.buffer);
+      return new td.Uint32List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_INT8_TYPE) {
-      return new td.Int8List.view(answer.buffer);
+      return new td.Int8List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_INT16_TYPE) {
-      return new td.Int16List.view(answer.buffer);
+      return new td.Int16List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_INT32_TYPE) {
-      return new td.Int32List.view(answer.buffer);
+      return new td.Int32List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_INT64_TYPE) {
-      return new td.Int64List.view(answer.buffer);
+      return new td.Int64List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_FLOAT32_TYPE) {
-      return new td.Float32List.view(answer.buffer);
+      return new td.Float32List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_FLOAT64_TYPE) {
-      return new td.Float64List.view(answer.buffer);
+      return new td.Float64List.view(answer.buffer, answer.offsetInBytes, len);
     } else if (type == TsonSpec.LIST_UINT64_TYPE) {
-      return new td.Uint64List.view(answer.buffer);
+      return new td.Uint64List.view(answer.buffer, answer.offsetInBytes, len);
     } else {
       throw new TsonError(404, "unknown.typed.data", "Unknown typed data");
     }

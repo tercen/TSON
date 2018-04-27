@@ -15,4 +15,3 @@ A tson float32 vector
 \description{
 Make a tson float32 vector
 }
-

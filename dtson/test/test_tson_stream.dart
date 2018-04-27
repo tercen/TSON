@@ -9,7 +9,7 @@ main() {
     test('Tson stream', () async {
       var list = new List.generate(10, (i) => {'hello': i});
 
-      var stream = new Stream.fromIterable(list)
+      var stream = new Stream<dynamic>.fromIterable(list)
           .transform(new TSON.TsonStreamEncoderTransformer())
           .transform(new TSON.TsonStreamDecoderTransformer());
 

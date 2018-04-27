@@ -38,4 +38,3 @@ list = list(integer=42L,
 bytes = toTSON(list)
 object = fromTSON(bytes)
 }
-
