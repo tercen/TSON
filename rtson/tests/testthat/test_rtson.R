@@ -115,15 +115,18 @@ test_that("Test logical to integer", {
               logical=as.integer(c(TRUE,FALSE, NA))
             )
   bytes = toTSON(list)
-#   print(as.integer((bytes)))
   object = fromTSON(bytes)
   expect_equal_list(object, list)
 })
 
+test_that("Test data", {
+  path = "tests/testthat/test_data.tson"
+  con = file(path, "rb")
+  bytes = readBin(con, raw(0), n=file.size(path))
+  rtson::fromTSON(bytes)
+  close(con)
+})
 
-# path = "tests/testthat/test_data.tson"
-# bytes = readBin(file(path, "rb"), raw(0), n=file.size(path))
-# 
-# rtson::fromTSON(bytes)
+ 
  
 
