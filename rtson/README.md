@@ -12,7 +12,7 @@ Type int64 is not yet implemented.
 
 ## Changes
 
-### 1.4.1
+### 1.4.2
 
 - fromTSON use native rust lib
 
