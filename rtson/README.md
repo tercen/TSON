@@ -10,7 +10,7 @@ Type int64 is not yet implemented.
 
 ### 1.4.1
 
-- toTSON use native rust lib
+- fromTSON use native rust lib
 
 
 ### 1.4
