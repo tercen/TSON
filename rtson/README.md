@@ -2,6 +2,10 @@
 
 R implementation of [TSON specification](https://github.com/tercen/TSON).
 
+```R
+ devtools::install_github("tercen/TSON", ref = "1.4.1-rtson", subdir="rtson", upgrade_dependencies = FALSE)
+```
+
 ## Note
 
 Type int64 is not yet implemented.
