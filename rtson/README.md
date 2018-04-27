@@ -8,6 +8,11 @@ Type int64 is not yet implemented.
 
 ## Changes
 
+### 1.4.1
+
+- toTSON use native rust lib
+
+
 ### 1.4
 
 - use jsonlite scalar definition : jsonlite::unbox and tson.scalar are now compatibles
