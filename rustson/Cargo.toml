@@ -1,8 +1,0 @@
-[package]
-name = "rustson"
-version = "0.1.0"
-authors = ["Alexandre Maurel <alexandre.maurel@gmail.com>"]
-
-[dependencies]
-bytes = "*"
-indexmap = "*"
