@@ -192,7 +192,7 @@
       <workItem from="1524837435565" duration="5228000" />
       <workItem from="1524845718109" duration="1282000" />
       <workItem from="1524849808409" duration="1263000" />
-      <workItem from="1536569244117" duration="1146000" />
+      <workItem from="1536569244117" duration="1159000" />
     </task>
     <task id="LOCAL-00001" summary="dart : async version + stream&#10;R : improve compatibility with jsonlite">
       <created>1505311324506</created>
@@ -271,11 +271,18 @@
       <option name="project" value="LOCAL" />
       <updated>1536573481868</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="cargo path is wrong when cargo_home is defined">
+      <created>1536573851418</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1536573851418</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10950000" />
+    <option name="totallyTimeSpent" value="10963000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1625" height="1054" extended-state="6" />
