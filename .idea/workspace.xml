@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5906e392-fc77-4424-9b09-b27d73b8af03" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dtson/lib/src/ser/binary_serializer.dart" afterPath="$PROJECT_DIR$/dtson/lib/src/ser/binary_serializer.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/README.md" afterPath="$PROJECT_DIR$/rtson/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/Makevars" afterPath="$PROJECT_DIR$/rtson/src/Makevars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/.idea/workspace.xml" afterPath="$PROJECT_DIR$/rtson/.idea/workspace.xml" />
     </list>
     <ignored path="rtson/.Rproj.user/" />
     <ignored path="jtson/.idea/" />
@@ -50,7 +48,17 @@
         <entry file="file://$PROJECT_DIR$/rtson/src/Makevars">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="27" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cargo.toml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -117,6 +125,19 @@
               <item name="TSON" type="462c0819:PsiDirectoryNode" />
               <item name="rtson" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TSON" type="462c0819:PsiDirectoryNode" />
+              <item name="rtson" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TSON" type="462c0819:PsiDirectoryNode" />
+              <item name="rtson" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="rustlib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -171,7 +192,7 @@
       <workItem from="1524837435565" duration="5228000" />
       <workItem from="1524845718109" duration="1282000" />
       <workItem from="1524849808409" duration="1263000" />
-      <workItem from="1536569244117" duration="717000" />
+      <workItem from="1536569244117" duration="1146000" />
     </task>
     <task id="LOCAL-00001" summary="dart : async version + stream&#10;R : improve compatibility with jsonlite">
       <created>1505311324506</created>
@@ -243,11 +264,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524846758118</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="cargo path is wrong when cargo_home is defined">
+      <created>1536573481868</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1536573481868</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10521000" />
+    <option name="totallyTimeSpent" value="10950000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-4" width="1625" height="1054" extended-state="6" />
@@ -256,9 +284,9 @@
       <window_info id="Cargo" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40111113" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40111113" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34111112" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11652945" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15389487" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -315,7 +343,8 @@
     <MESSAGE value="windowns rustlib added" />
     <MESSAGE value="rtson &quot;Test data&quot; added" />
     <MESSAGE value="added git dependency on rustson" />
-    <option name="LAST_COMMIT_MESSAGE" value="added git dependency on rustson" />
+    <MESSAGE value="cargo path is wrong when cargo_home is defined" />
+    <option name="LAST_COMMIT_MESSAGE" value="cargo path is wrong when cargo_home is defined" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -482,13 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="52" lean-forward="false" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rtson/DESCRIPTION">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -508,10 +530,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rtson/src/Makevars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="27" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="27" />
           <folding />
         </state>
       </provider>
