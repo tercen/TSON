@@ -6,8 +6,10 @@ class _BinarySerializer {
   td.ByteData _byteData;
   int _intByteOffset;
   int _byteOffset;
+  
 
   _BinarySerializer.from(object) {
+    
     _initializeFromObject(object);
   }
 
@@ -18,7 +20,8 @@ class _BinarySerializer {
 
   void _initializeFromObject(object) {
     _intByteOffset = 0;
-    var size = _computeObjectSize(TsonSpec.VERSION);
+    var size = 0;
+    size = _computeObjectSize(TsonSpec.VERSION);
     size += _computeMapOrListSize(object);
 
     _bytes = new td.Uint8List(size);
@@ -200,7 +203,8 @@ class _BinarySerializer {
     if (object == null) {
       sizeInBytes += 0;
     } else if (object is String) {
-      sizeInBytes += object.codeUnits.length + TsonSpec.NULL_TERMINATED_LENGTH_IN_BYTES;
+      var bytes = UTF8.encode(object);
+      sizeInBytes += bytes.length + TsonSpec.NULL_TERMINATED_LENGTH_IN_BYTES;
     } else if (object is int) {
       sizeInBytes += 4;
     } else if (object is double) {

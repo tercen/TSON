@@ -1,5 +1,5 @@
 ifneq "$(strip $(CARGO_HOME))" ""
-	CG="$(CARGO_HOME)"
+	CG="$(CARGO_HOME)/bin/cargo"
 else
 	CG=cargo
 endif
