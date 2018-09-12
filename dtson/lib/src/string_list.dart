@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:typed_data' as td;
+import 'dart:convert';
 
 class CStringList  extends ListBase<String> implements List<String>  {
 
@@ -10,12 +11,12 @@ class CStringList  extends ListBase<String> implements List<String>  {
   CStringList.fromList(List<String> list) {
     var lengthInBytes = list.fold(0, (len, str) {
       if (str == null) throw new ArgumentError("Null values are not allowed.");
-      return len + str.codeUnits.length + 1;
+      return len + UTF8.encode(str).length + 1;
     });
     _bytes = new td.Uint8List(lengthInBytes);
     var offset = 0;
     list.forEach((str){
-      var bytes = str.codeUnits;
+      var bytes = UTF8.encode(str);
       _bytes.setRange(offset, offset + bytes.length, bytes);
       offset += bytes.length + 1;
     });
@@ -51,6 +52,7 @@ class CStringList  extends ListBase<String> implements List<String>  {
   operator [](int i) {
     var start = starts[i];
     var end = starts[i + 1];
+    return UTF8.decode(_bytes.sublist(start, end-1));
     return new String.fromCharCodes(_bytes, start, end - 1);
   }
 
