@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5906e392-fc77-4424-9b09-b27d73b8af03" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rtson/src/rustlib/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/.Rhistory" afterPath="$PROJECT_DIR$/rtson/.Rhistory" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/DESCRIPTION" afterPath="$PROJECT_DIR$/rtson/DESCRIPTION" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/NAMESPACE" afterPath="$PROJECT_DIR$/rtson/NAMESPACE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/R/REXPORT.R" afterPath="$PROJECT_DIR$/rtson/R/REXPORT.R" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/R/rtson.R" afterPath="$PROJECT_DIR$/rtson/R/rtson.R" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/R/utils.R" afterPath="$PROJECT_DIR$/rtson/R/utils.R" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/README.md" afterPath="$PROJECT_DIR$/rtson/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/REXPORT.c" afterPath="$PROJECT_DIR$/rtson/src/REXPORT.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/rustlib/Cargo.lock" afterPath="$PROJECT_DIR$/rtson/src/rustlib/Cargo.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml" afterPath="$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/rustlib/src/export.rs" afterPath="$PROJECT_DIR$/rtson/src/rustlib/src/export.rs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/src/rustlib/src/lib.rs" afterPath="$PROJECT_DIR$/rtson/src/rustlib/src/lib.rs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rtson/tests/testthat/test_rtson.R" afterPath="$PROJECT_DIR$/rtson/tests/testthat/test_rtson.R" />
     </list>
     <ignored path="rtson/.Rproj.user/" />
     <ignored path="jtson/.idea/" />
@@ -54,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utils.R" pinned="false" current-in-tab="true">
+      <file leaf-file-name="utils.R" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rtson/R/utils.R">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
@@ -70,6 +56,19 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rtson/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="90">
+                <caret line="5" column="59" lean-forward="true" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="59" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -118,12 +117,12 @@
         <option value="$PROJECT_DIR$/rtson/DESCRIPTION" />
         <option value="$PROJECT_DIR$/dtson/lib/src/string_list.dart" />
         <option value="$PROJECT_DIR$/dtson/test/test_cstring_list.dart" />
-        <option value="$PROJECT_DIR$/rtson/README.md" />
         <option value="$PROJECT_DIR$/rtson/src/rustlib/README.md" />
         <option value="$PROJECT_DIR$/rtson/src/rustlib/Cargo.toml" />
         <option value="$PROJECT_DIR$/rtson/src/rustlib/src/export.rs" />
         <option value="$PROJECT_DIR$/rtson/R/utils.R" />
         <option value="$PROJECT_DIR$/rtson/src/rustlib/src/lib.rs" />
+        <option value="$PROJECT_DIR$/rtson/README.md" />
       </list>
     </option>
   </component>
@@ -134,10 +133,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="57" />
-    <option name="y" value="25" />
-    <option name="width" value="1623" />
-    <option name="height" value="1025" />
+    <option name="x" value="67" />
+    <option name="y" value="27" />
+    <option name="width" value="1613" />
+    <option name="height" value="1023" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -165,25 +164,6 @@
               <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
               <item name="TSON" type="462c0819:PsiDirectoryNode" />
               <item name="rtson" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TSON" type="462c0819:PsiDirectoryNode" />
-              <item name="rtson" type="462c0819:PsiDirectoryNode" />
-              <item name="R" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TSON" type="462c0819:PsiDirectoryNode" />
-              <item name="rtson" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TSON" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TSON" type="462c0819:PsiDirectoryNode" />
-              <item name="rtson" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="rustlib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -272,7 +252,7 @@
       <workItem from="1554715169608" duration="2209000" />
       <workItem from="1554920558437" duration="614000" />
       <workItem from="1554982120951" duration="13000" />
-      <workItem from="1555320673056" duration="18639000" />
+      <workItem from="1555320673056" duration="18985000" />
     </task>
     <task id="LOCAL-00001" summary="dart : async version + stream&#10;R : improve compatibility with jsonlite">
       <created>1505311324506</created>
@@ -379,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536750041385</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="1.5.0-rtson">
+      <created>1555343086444</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1555343086444</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -397,18 +384,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38106000" />
+    <option name="totallyTimeSpent" value="38452000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="25" width="1623" height="1025" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cargo" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974002" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35598704" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30609897" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29113925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30609897" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29113925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23715916" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -470,7 +456,8 @@
     <MESSAGE value="cargo path is wrong when cargo_home is defined" />
     <MESSAGE value="upgrade version" />
     <MESSAGE value="CString UTF8" />
-    <option name="LAST_COMMIT_MESSAGE" value="CString UTF8" />
+    <MESSAGE value="1.5.0-rtson" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.5.0-rtson" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -739,17 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rtson/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="511">
-            <caret line="74" column="3" lean-forward="false" selection-start-line="74" selection-start-column="3" selection-end-line="74" selection-end-column="3" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rtson/src/rustlib/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -884,6 +860,17 @@
         <state relative-caret-position="162">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rtson/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="90">
+            <caret line="5" column="59" lean-forward="true" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="59" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
