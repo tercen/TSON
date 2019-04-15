@@ -3,7 +3,7 @@
 R implementation of [TSON specification](https://github.com/tercen/TSON).
 
 ```R
- devtools::install_github("tercen/TSON", ref = "1.4.4-rtson", subdir="rtson", upgrade_dependencies = FALSE, args="--no-multiarch")
+ devtools::install_github("tercen/TSON", ref = "1.5.0-rtson", subdir="rtson", upgrade_dependencies = FALSE, args="--no-multiarch")
 ```
 
 ## Note
