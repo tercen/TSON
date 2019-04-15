@@ -3,6 +3,17 @@
 use super::*;
 
 #[no_mangle]
+pub extern "C" fn rustr_to_tson(object : SEXP)->SEXP{
+
+ let object_ : SEXP = unwrapr!( SEXP::rnew(object) );
+ let res  = unwrapr!( to_tson(object_));
+
+ let res_sexp : SEXP = unwrapr!(res.intor());
+
+ return res_sexp;
+}
+
+#[no_mangle]
 pub extern "C" fn rustr_from_tson(rbytes : SEXP)->SEXP{
 
  let rbytes_ : RawVec = unwrapr!( RawVec::rnew(rbytes) );

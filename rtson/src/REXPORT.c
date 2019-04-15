@@ -3,5 +3,7 @@
 #include <Rinternals.h>
 #include <R.h>
 
+extern SEXP rustr_to_tson(SEXP object);
+SEXP rtson_to_tson(SEXP object){ return(rustr_to_tson(object));}
 extern SEXP rustr_from_tson(SEXP rbytes);
 SEXP rtson_from_tson(SEXP rbytes){ return(rustr_from_tson(rbytes));}

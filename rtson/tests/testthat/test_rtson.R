@@ -120,7 +120,7 @@ test_that("Test logical to integer", {
 })
 
 test_that("Test data", {
-  path = "tests/testthat/test_data.tson"
+  path = "test_data.tson"
   con = file(path, "rb")
   bytes = readBin(con, raw(0), n=file.size(path))
   rtson::fromTSON(bytes)

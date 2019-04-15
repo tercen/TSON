@@ -34,6 +34,7 @@ tson.float32.vec = function(object){
 #' @export
 tson.int8.vec = function(object){
   if (is.null(object)) return(NULL)
+  object = as.integer(object)
   class(object) <- c("int8", class(object))
   return (object)
 }
@@ -46,7 +47,20 @@ tson.int8.vec = function(object){
 #' @export
 tson.int16.vec = function(object){
   if (is.null(object)) return(NULL)
+  object = as.integer(object)
   class(object) <- c("int16", class(object))
+  return (object)
+}
+
+#' Make a tson int16 vector
+#'
+#'
+#' @param object A vector or list
+#' @return A tson int64 vector
+#' @export
+tson.int64.vec = function(object){
+  if (is.null(object)) return(NULL)
+  class(object) <- c("int64", class(object))
   return (object)
 }
 
@@ -86,6 +100,48 @@ tson.uint32.vec = function(object){
   return (object)
 }
 
+#' Make a tson uint64 vector
+#'
+#'
+#' @param object A vector or list
+#' @return A tson uint64 vector
+#' @export
+tson.uint64.vec = function(object){
+  if (is.null(object)) return(NULL)
+  class(object) <- c("uint64", class(object))
+  return (object)
+}
+
+is.namedlist = function(obj) {
+  return (!is.null(names(obj)))
+}
+
+#' Make a tson scalar (ie: singleton)
+#'
+#' @param object A vector or list
+#' @return A tson scalar
+#' @export
+tson.scalar = function(obj){
+  if (is.null(obj)) return(NULL)
+  # Lists can never be a scalar (this can arise if a dataframe contains a column
+  # with lists)
+  if(length(dim(obj)) > 1){
+    if(!identical(nrow(obj), 1L)){
+      warning("Tried to use as.scalar on an array or dataframe with ", nrow(obj), " rows.", call.=FALSE)
+      return(obj)
+    }
+  } else if(!identical(length(obj), 1L)) {
+    warning("Tried to use as.scalar on an object of length ", length(obj), call.=FALSE)
+    return(obj)
+  } else if(is.namedlist(obj)){
+    warning("Tried to use as.scalar on a named list.", call.=FALSE)
+    return(obj)
+  }
+
+  class(obj) <- c("scalar", class(obj))
+  return(obj)
+}
+
 #' Make a tson integer
 #' 
 #'
@@ -118,32 +174,7 @@ tson.character = function(object){
   return (tson.scalar(as.character(object)))
 }
 
-#' Make a tson scalar (ie: singleton)
-#' 
-#' @param object A vector or list
-#' @return A tson scalar 
-#' @export
-tson.scalar = function(obj){
-  if (is.null(obj)) return(NULL)
-  # Lists can never be a scalar (this can arise if a dataframe contains a column
-  # with lists)
-  if(length(dim(obj)) > 1){
-    if(!identical(nrow(obj), 1L)){
-      warning("Tried to use as.scalar on an array or dataframe with ", nrow(obj), " rows.", call.=FALSE)
-      return(obj)
-    }
-  } else if(!identical(length(obj), 1L)) {
-    warning("Tried to use as.scalar on an object of length ", length(obj), call.=FALSE)
-    return(obj)
-  } else if(is.namedlist(obj)){
-    warning("Tried to use as.scalar on a named list.", call.=FALSE)
-    return(obj)
-  }
-  
-  class(obj) <- c("scalar", class(obj))
-  return(obj)
-}
 
-is.namedlist = function(obj) {
-  return (!is.null(names(obj)))
-}
+
+
+

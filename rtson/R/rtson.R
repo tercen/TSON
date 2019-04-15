@@ -1,8 +1,5 @@
 library(R6)
 
-
-
-
 #' Serialize a list 
 #'
 #' Write TSON specification binary-encoded format to a connection.
@@ -71,14 +68,16 @@ writeTSON <- function(object, con) {
 #' )
 #' 
 #' bytes = toTSON(list)
+#' @useDynLib rtson rtson_to_tson
 #' @export
 toTSON <- function(object) {
-  con = rawConnection(raw(0), "r+")
-  return(tryCatch({
-    writeTSON(object,con)
-    bytes = rawConnectionValue(con)
-    return(bytes)
-  }, finally=close(con)))
+  # con = rawConnection(raw(0), "r+")
+  # return(tryCatch({
+  #   writeTSON(object,con)
+  #   bytes = rawConnectionValue(con)
+  #   return(bytes)
+  # }, finally=close(con)))
+  return(to_tson(object))
 }
 
 #' Deserialize a connection 

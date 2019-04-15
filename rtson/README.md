@@ -8,9 +8,19 @@ R implementation of [TSON specification](https://github.com/tercen/TSON).
 
 ## Note
 
-Type int64 is not yet implemented.
+Type int64 partially implemented.
 
 ## Changes
+
+### 1.5.0
+
+- toTSON use native rust lib
+- serialisation to uint64 and int64 now possible using either interger or float vector
+
+```R
+toTSON(tson.int64.vec(42))
+toTSON(tson.uint64.vec(42))
+```
 
 ### 1.4.2
 
@@ -66,4 +76,10 @@ object = fromTSON(bytes)
 
 print(object)
 
+```
+
+# rustrize
+
+```R
+rustinr::rustrize()
 ```
