@@ -4,8 +4,7 @@ version = "0.1.0"
 
 [dependencies]
 rustr = "*"
-indexmap = "*"
-rtsonlib = { git = "https://github.com/tercen/rtsonlib", tag = "0.2.2" }
+rtsonlib = { git = "https://github.com/tercen/rtsonlib", tag = "0.2.3" }
 
 [lib]
 name = "rustlib"
