@@ -83,3 +83,19 @@ print(object)
 ```R
 rustinr::rustrize()
 ```
+
+# Bench
+
+```R
+
+object = list(a=rtson::tson.scalar(6), p=seq(100))
+
+rbenchmark::benchmark("jsonlite" = {
+            jsonlite::fromJSON(jsonlite::toJSON(object))
+          },
+          "rtson-json" = {
+            rtson::fromJSON(rtson::toJSON(object))
+          },
+          "rtson" = {
+            rtson::fromTSON(rtson::toTSON(object))
+          })

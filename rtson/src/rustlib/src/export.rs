@@ -24,3 +24,25 @@ pub extern "C" fn rustr_from_tson(rbytes : SEXP)->SEXP{
  return res_sexp;
 }
 
+#[no_mangle]
+pub extern "C" fn rustr_to_json(object : SEXP)->SEXP{
+
+ let object_ : SEXP = unwrapr!( SEXP::rnew(object) );
+ let res  = unwrapr!( to_json(object_));
+
+ let res_sexp : SEXP = unwrapr!(res.intor());
+
+ return res_sexp;
+}
+
+#[no_mangle]
+pub extern "C" fn rustr_from_json(data : SEXP)->SEXP{
+
+ let data_ : String = unwrapr!( String::rnew(data) );
+ let res  = unwrapr!( from_json(data_));
+
+ let res_sexp : SEXP = unwrapr!(res.intor());
+
+ return res_sexp;
+}
+

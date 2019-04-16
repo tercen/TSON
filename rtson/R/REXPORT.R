@@ -4,3 +4,7 @@
 to_tson = function(object){ .Call('rtson_to_tson',PACKAGE = 'rtson', object)}
 
 from_tson = function(rbytes){ .Call('rtson_from_tson',PACKAGE = 'rtson', rbytes)}
+
+to_json = function(object){ .Call('rtson_to_json',PACKAGE = 'rtson', object)}
+
+from_json = function(data){ .Call('rtson_from_json',PACKAGE = 'rtson', data)}

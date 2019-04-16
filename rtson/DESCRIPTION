@@ -1,7 +1,7 @@
 Package: rtson
 Type: Package
 Title: Typed JSON
-Version: 1.5.2
+Version: 1.6.0
 Date: 2015-11-22
 Author: Alexandre Maurel
 Maintainer: Alexandre Maurel <alexandre.maurel@gmail.com>

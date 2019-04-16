@@ -157,4 +157,14 @@ fromTSON <- function(bytes){
   return(from_tson(bytes))
   # con = rawConnection(bytes, "r")
   # return(tryCatch(readTSON(con), finally = close(con)))
-} 
+}
+
+#' @export
+fromJSON <- function(object){
+  return(from_json(object))
+}
+
+#' @export
+toJSON <- function(object) {
+  return(to_json(object))
+}
