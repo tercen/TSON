@@ -12,6 +12,10 @@ Type int64 partially implemented.
 
 ## Changes
 
+### 1.6.0
+
+- json encode/decode added
+
 ### 1.5.0
 
 - toTSON use native rust lib
