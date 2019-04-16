@@ -5,8 +5,9 @@ TSON, short for Typed JSON, is a binary-encoded serialization of JSON-like docum
 # Implementations
 
 - Dart
-- R
+- R (use native lib rustson)
 - Smalltalk
+- rust (see https://github.com/tercen/rustson)
 
 # Specification Version 1.1.0
 

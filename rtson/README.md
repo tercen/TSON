@@ -15,7 +15,7 @@ Type int64 partially implemented.
 ### 1.5.0
 
 - toTSON use native rust lib
-- serialisation to uint64 and int64 now possible using either interger or float vector
+- serialisation to uint64 and int64 is now possible using either interger or float vector
 
 ```R
 toTSON(tson.int64.vec(42))
